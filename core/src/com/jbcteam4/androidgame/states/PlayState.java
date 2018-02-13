@@ -3,6 +3,7 @@ package com.jbcteam4.androidgame.states;
 
 
         import com.badlogic.gdx.Gdx;
+        import com.badlogic.gdx.Preferences;
         import com.badlogic.gdx.graphics.Texture;
         import com.badlogic.gdx.graphics.g2d.SpriteBatch;
         import com.badlogic.gdx.math.Vector2;
@@ -19,12 +20,26 @@ public class PlayState extends State {
     private static final int TUBE_COUNT = 4;
     private static final int GROUND_Y_OFFSET = -30;
 
+    private static final String PREFERENCES_NAME = "preferences";
+    private static final String BACKGROUND_PREFERENCE = "background";
+    private static final String BIRD_ANIMATION_PREFERENCE = "birdanimation";
+    private static final String TOPTUBE_ASSET_PREFERENCE = "toptube";
+    private static final String BOTTOMTUBE_ASSET_PREFERENCE = "bottomtube";
+    private static final String MAX_SCORE_PREFERENCE = "maxScore";
+
     private Bird bird;
     private Texture bg;
     private Texture ground;
     private Vector2 groundPos1, groundPos2;
 
     private Array<Tube> tubes;
+
+    Preferences prefs = Gdx.app.getPreferences("preferences").putString(BACKGROUND_PREFERENCE, "bg.png")
+            .putString(BIRD_ANIMATION_PREFERENCE, "birdanimation.png")
+            .putString(TOPTUBE_ASSET_PREFERENCE, "toptube.png")
+            .putString(BOTTOMTUBE_ASSET_PREFERENCE, "bottomtube.png");
+
+
 
     public PlayState(GameStateManager gsm) {
         super(gsm);

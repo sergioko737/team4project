@@ -6,6 +6,7 @@ package com.jbcteam4.androidgame.sprites;
         import com.badlogic.gdx.graphics.g2d.TextureRegion;
         import com.badlogic.gdx.math.Rectangle;
         import com.badlogic.gdx.math.Vector3;
+        import com.jbcteam4.androidgame.states.GamePreferences;
 
 
 public class Bird {
@@ -18,10 +19,12 @@ public class Bird {
     private Sound flap;
     private Texture texture;
 
+    private GamePreferences preferences;
+
     public Bird(int x, int y){
         position = new Vector3(x, y, 0);
         velosity = new Vector3(0, 0, 0);
-        texture = new Texture("birdanimation.png");
+        texture = new Texture("bg.png");
         birdAnimation = new Animation(new TextureRegion(texture), 3, 0.5f);
         bounds = new Rectangle(x, y, texture.getWidth() /3, texture.getHeight());
         flap = Gdx.audio.newSound(Gdx.files.internal("sfx_wing.ogg"));

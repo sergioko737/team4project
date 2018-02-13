@@ -11,11 +11,12 @@ public class MenuState extends State {
 
     private Texture background;
     private Texture playBtn;
+    String bg = "bg.png";
 
     public MenuState(GameStateManager gsm) {
         super(gsm);
         camera.setToOrtho(false, FlappyDemo.WIDTH / 2, FlappyDemo.HEIGHT / 2);
-        background = new Texture("bg.png");
+        background = new Texture(bg);
         playBtn = new Texture("playbtn.png");
     }
 
