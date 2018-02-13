@@ -4,7 +4,7 @@ package com.jbcteam4.androidgame.states;
         import com.badlogic.gdx.graphics.Texture;
         import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-        import com.jbcteam4.androidgame.FlappyDemo;
+        import com.jbcteam4.androidgame.FlappyStarter;
 
 
 public class MenuState extends State {
@@ -14,7 +14,7 @@ public class MenuState extends State {
 
     public MenuState(GameStateManager gsm) {
         super(gsm);
-        camera.setToOrtho(false, FlappyDemo.WIDTH / 2, FlappyDemo.HEIGHT / 2);
+        camera.setToOrtho(false, FlappyStarter.WIDTH / 2, FlappyStarter.HEIGHT / 2);
         background = new Texture("bg.png");
         playBtn = new Texture("playbtn.png");
     }

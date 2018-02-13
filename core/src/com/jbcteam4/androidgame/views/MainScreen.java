@@ -1,6 +1,4 @@
-package com.jbcteam4.androidgame;
-
-import com.badlogic.gdx.ApplicationAdapter;
+package com.jbcteam4.androidgame.views;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -8,11 +6,16 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
+import com.jbcteam4.androidgame.FlappyDemo;
+import com.jbcteam4.androidgame.FlappyStarter;
 import com.jbcteam4.androidgame.states.GameStateManager;
 import com.jbcteam4.androidgame.states.MenuState;
 
-public class FlappyDemo extends Game implements  Screen{
+/**
+ * Created by student on 18.2.13.
+ */
+
+public class MainScreen implements Screen {
     public static final int WIDTH = 480;
     public static final int HEIGHT = 800;
 
@@ -24,9 +27,9 @@ public class FlappyDemo extends Game implements  Screen{
     private Music music;
 
 
+    public MainScreen(FlappyStarter flappyStarter) {
 
-    @Override
-    public void create () {
+
         batch = new SpriteBatch();
         gsm = new GameStateManager();
         music = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
@@ -35,22 +38,37 @@ public class FlappyDemo extends Game implements  Screen{
         music.play();
         Gdx.gl.glClearColor(1, 0, 0, 1);
         gsm.push(new MenuState(gsm));
-    }
 
-    @Override
-    public void render () {
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        gsm.update(Gdx.graphics.getDeltaTime());
-        gsm.render(batch);
+
     }
 
     @Override
     public void show() {
 
+
     }
 
     @Override
     public void render(float delta) {
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        gsm.update(Gdx.graphics.getDeltaTime());
+        gsm.render(batch);
+
+
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
 
     }
 
@@ -61,7 +79,6 @@ public class FlappyDemo extends Game implements  Screen{
 
     @Override
     public void dispose() {
-        super.dispose();
-        music.dispose();
+
     }
 }

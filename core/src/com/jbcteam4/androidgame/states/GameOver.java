@@ -1,10 +1,10 @@
 package com.jbcteam4.androidgame.states;
 
 
-        import com.badlogic.gdx.Gdx;
-        import com.badlogic.gdx.graphics.Texture;
-        import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-        import com.jbcteam4.androidgame.FlappyDemo;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.jbcteam4.androidgame.FlappyStarter;
 
 
 public class GameOver extends State {
@@ -14,7 +14,7 @@ public class GameOver extends State {
 
     public GameOver(GameStateManager gsm) {
         super(gsm);
-        camera.setToOrtho(false, FlappyDemo.WIDTH / 2, FlappyDemo.HEIGHT / 2);
+        camera.setToOrtho(false, FlappyStarter.WIDTH / 2, FlappyStarter.HEIGHT / 2);
         background = new Texture("bg.png");
         gameover = new Texture("gameover.png");
     }
