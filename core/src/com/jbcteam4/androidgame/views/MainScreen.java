@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.jbcteam4.androidgame.FlappyStarter;
 import com.jbcteam4.androidgame.states.GameStateManager;
 import com.jbcteam4.androidgame.states.MenuState;
@@ -23,6 +24,7 @@ public class MainScreen implements Screen {
     private SpriteBatch batch;
 
     private Music music;
+    private Stage stage;
 
 
     public MainScreen(FlappyStarter flappyStarter) {
@@ -42,6 +44,7 @@ public class MainScreen implements Screen {
 
     @Override
     public void show() {
+        Gdx.input.setInputProcessor(stage);
 
 
     }
