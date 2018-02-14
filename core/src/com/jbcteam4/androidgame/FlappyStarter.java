@@ -1,7 +1,5 @@
 package com.jbcteam4.androidgame;
 
-//import blog.gamedevelopment.box2dtutorial.loader.B2dAssetManager;
-
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;

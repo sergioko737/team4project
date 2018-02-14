@@ -32,8 +32,6 @@ public class PreferencesScreen implements Screen {
         parent = flappyStarter;
         /// create stage and set it as input processor
         stage = new Stage(new ScreenViewport());
-
-
     }
 
     @Override
@@ -53,7 +51,9 @@ public class PreferencesScreen implements Screen {
 
         // music volume
         final Slider volumeMusicSlider = new Slider(0f, 1f, 0.1f, false, skin);
+
         volumeMusicSlider.setValue(parent.getPreferences().getMusicVolume());
+
         volumeMusicSlider.addListener(new EventListener() {
             @Override
             public boolean handle(Event event) {
@@ -76,8 +76,12 @@ public class PreferencesScreen implements Screen {
         });
 
         // music on/off
-        final CheckBox musicCheckbox = new CheckBox(null, skin);
+        final CheckBox musicCheckbox = new CheckBox(null, skin, "default");
         musicCheckbox.setChecked(parent.getPreferences().isMusicEnabled());
+     //   musicCheckbox.getCells().get(0).size(150, 150);
+        musicCheckbox.getImageCell().width(150);
+        musicCheckbox.getImageCell().height(150);
+
         musicCheckbox.addListener(new EventListener() {
             @Override
             public boolean handle(Event event) {
@@ -88,7 +92,7 @@ public class PreferencesScreen implements Screen {
         });
 
         // sound on/off
-        final CheckBox soundEffectsCheckbox = new CheckBox(null, skin);
+        final CheckBox soundEffectsCheckbox = new CheckBox(null, skin, "default");
         soundEffectsCheckbox.setChecked(parent.getPreferences().isSoundEffectsEnabled());
         soundEffectsCheckbox.addListener(new EventListener() {
             @Override
@@ -100,7 +104,9 @@ public class PreferencesScreen implements Screen {
         });
 
         // return to main screen button
-        final TextButton backButton = new TextButton("Back", skin, "small");
+        final TextButton backButton = new TextButton("Back", skin, "default");
+        backButton.setSize(200, 200);
+
         backButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -109,26 +115,33 @@ public class PreferencesScreen implements Screen {
             }
         });
 
-        titleLabel = new Label( "Preferences", skin );
-        volumeMusicLabel = new Label( "Music Volume", skin );
-        volumeSoundLabel = new Label( "Sound Volume", skin );
-        musicOnOffLabel = new Label( "Music", skin );
-        soundOnOffLabel = new Label( "Sound Effect", skin );
+        titleLabel = new Label( "Preferences", skin);
+        titleLabel.setFontScale(7);
+        volumeMusicLabel = new Label( "Music Volume", skin);
+        volumeMusicLabel.setFontScale(4);
+        volumeSoundLabel = new Label( "Sound Volume", skin);
+        volumeSoundLabel.setFontScale(4);
+        musicOnOffLabel = new Label( "Music", skin);
+        musicOnOffLabel.setFontScale(4);
+        soundOnOffLabel = new Label( "Sound Effect", skin);
+        soundOnOffLabel.setFontScale(4);
 
         table.add(titleLabel).colspan(2);
+        table.row().pad(70,0,0,10);
+        table.add(volumeMusicLabel).bottom();
         table.row().pad(10,0,0,10);
-        table.add(volumeMusicLabel).left();
         table.add(volumeMusicSlider);
-        table.row().pad(10,0,0,10);
+        table.row().pad(40,0,0,10);
         table.add(musicOnOffLabel).left();
         table.add(musicCheckbox);
-        table.row().pad(10,0,0,10);
+        table.row().pad(40,0,0,10);
         table.add(volumeSoundLabel).left();
-        table.add(soundMusicSlider);
         table.row().pad(10,0,0,10);
+        table.add(soundMusicSlider);
+        table.row().pad(40,0,0,10);
         table.add(soundOnOffLabel).left();
         table.add(soundEffectsCheckbox);
-        table.row().pad(10,0,0,10);
+        table.row().pad(100,0,0,10);
         table.add(backButton).colspan(2);
 
     }
