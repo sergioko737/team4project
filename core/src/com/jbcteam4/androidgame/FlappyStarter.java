@@ -10,7 +10,6 @@ import com.jbcteam4.androidgame.views.MainScreen;
 import com.jbcteam4.androidgame.views.MenuScreen;
 import com.jbcteam4.androidgame.views.PreferencesScreen;
 
-
 public class FlappyStarter extends Game {
 
 

@@ -1,6 +1,8 @@
 package com.jbcteam4.androidgame.views;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
@@ -22,12 +24,16 @@ public class MainScreen implements Screen {
 
     private GameStateManager gsm;
     private SpriteBatch batch;
+    FlappyStarter parent;
 
     private Music music;
     private Stage stage;
 
+   // private MainScreen parent;
+
 
     public MainScreen(FlappyStarter flappyStarter) {
+        parent = flappyStarter;
 
 
         batch = new SpriteBatch();
@@ -39,13 +45,12 @@ public class MainScreen implements Screen {
         Gdx.gl.glClearColor(1, 0, 0, 1);
         gsm.push(new MenuState(gsm));
 
-
     }
 
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
-
+        Gdx.input.setCatchBackKey(true);
 
     }
 
@@ -56,7 +61,13 @@ public class MainScreen implements Screen {
         gsm.render(batch);
 
 
+        if (Gdx.input.isKeyPressed(Input.Keys.BACK)){
+            System.out.println("Back button pressed");
+            parent.changeScreen(FlappyStarter.MENU);
+        }
     }
+
+
 
     @Override
     public void resize(int width, int height) {

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -19,8 +20,10 @@ public class MenuScreen implements Screen {
     private FlappyStarter parent;
     private Stage stage;
     private Skin skin;
+    private SpriteBatch batch;
+    private Texture texture;
 
-    //TODO set background to picture
+
     private Texture backGround;
 
     public MenuScreen(FlappyStarter flappyStarter){
@@ -40,8 +43,12 @@ public class MenuScreen implements Screen {
 
         // Create a table that fills the screen. Everything else will go inside this table.
         Table table = new Table();
+        table.setOrigin(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+
         table.setFillParent(true);
-        table.setDebug(true);
+        table.setTransform(true);
+        table.scaleBy(1.1f);
+        //table.setDebug(true);
         stage.addActor(table);
 
 
@@ -90,6 +97,14 @@ public class MenuScreen implements Screen {
         // tell our stage to do actions and draw itself
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
 
+        //Set background image
+        stage.getBatch().begin();
+        texture = new Texture("bg.png");
+        stage.getBatch().draw(texture, 0, 0, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+        stage.getBatch().end();
+
+
+
         stage.draw();
     }
 
@@ -101,19 +116,19 @@ public class MenuScreen implements Screen {
 
     @Override
     public void pause() {
-        // TODO Auto-generated method stub
+        // Auto-generated method stub
 
     }
 
     @Override
     public void resume() {
-        // TODO Auto-generated method stub
+        // Auto-generated method stub
 
     }
 
     @Override
     public void hide() {
-        // TODO Auto-generated method stub
+        // Auto-generated method stub
 
     }
 

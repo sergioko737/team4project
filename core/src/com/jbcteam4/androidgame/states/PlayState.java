@@ -3,6 +3,7 @@ package com.jbcteam4.androidgame.states;
 
 
         import com.badlogic.gdx.Gdx;
+        import com.badlogic.gdx.Input;
         import com.badlogic.gdx.graphics.Texture;
         import com.badlogic.gdx.graphics.g2d.SpriteBatch;
         import com.badlogic.gdx.math.Vector2;
@@ -23,6 +24,7 @@ public class PlayState extends State {
     private Texture bg;
     private Texture ground;
     private Vector2 groundPos1, groundPos2;
+    private FlappyStarter parent;
 
     private Array<Tube> tubes;
 
@@ -85,6 +87,8 @@ public class PlayState extends State {
         sb.draw(ground, groundPos2.x, groundPos2.y);
 
         sb.end();
+
+
 
     }
 
