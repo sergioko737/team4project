@@ -31,7 +31,7 @@ public class PreferencesScreen implements Screen {
     private Label soundOnOffLabel;
     private AppPreferences preferences;
     private Texture texture;
-
+//
 
     public PreferencesScreen(FlappyStarter flappyStarter) {
         parent = flappyStarter;
