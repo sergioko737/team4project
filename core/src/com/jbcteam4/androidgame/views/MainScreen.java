@@ -1,12 +1,10 @@
 package com.jbcteam4.androidgame.views;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.jbcteam4.androidgame.FlappyDemo;
 import com.jbcteam4.androidgame.FlappyStarter;
 import com.jbcteam4.androidgame.states.GameStateManager;
 import com.jbcteam4.androidgame.states.MenuState;
