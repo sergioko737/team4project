@@ -45,6 +45,7 @@ public class MainScreen implements Screen {
         Gdx.gl.glClearColor(1, 0, 0, 1);
         gsm.push(new MenuState(gsm));
 
+
     }
 
     @Override

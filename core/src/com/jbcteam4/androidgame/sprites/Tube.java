@@ -9,10 +9,10 @@ import java.util.Random;
 
 public class Tube {
 
-    public static final int TUBE_WIDTH = 52;
+    public static final int TUBE_WIDTH = 48;
 
     private static final int FLUCTUATION = 130;
-    private static final int TUBE_GAP = 100;
+    private static final int TUBE_GAP = 120;
     private static final int LOWEST_OPENING = 120;
 
     private Texture topTube, bottomTube;
@@ -38,8 +38,8 @@ public class Tube {
     }
 
     public Tube(float x) {
-        topTube = new Texture("toptube.png");
-        bottomTube = new Texture("bottomtube.png");
+        topTube = new Texture("toptube-03.png");
+        bottomTube = new Texture("bottomtube-03.png");
         rand = new Random();
 
         posTopTube = new Vector2(x, rand.nextInt(FLUCTUATION) + TUBE_GAP + LOWEST_OPENING);

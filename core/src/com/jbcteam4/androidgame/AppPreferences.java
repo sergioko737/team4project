@@ -13,7 +13,7 @@ public class AppPreferences {
     private static final String PREF_SOUND_VOL = "sound";
     private static final String PREFS_NAME = "b2dtut";
 
-    protected Preferences getPrefs() {
+    public Preferences getPrefs() {
         return Gdx.app.getPreferences(PREFS_NAME);
     }
 
@@ -40,7 +40,12 @@ public class AppPreferences {
     }
 
     public void setMusicVolume(float volume) {
+
+        System.out.println("sound music updated " + volume);
         getPrefs().putFloat(PREF_MUSIC_VOLUME, volume);
+        getPrefs().flush();
+        System.out.println("AND NOW IT IS " + getPrefs().getFloat(PREF_MUSIC_VOLUME));
+        System.out.println(getPrefs().toString());
         getPrefs().flush();
     }
 

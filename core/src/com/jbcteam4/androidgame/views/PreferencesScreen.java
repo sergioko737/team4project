@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.jbcteam4.androidgame.AppPreferences;
 import com.jbcteam4.androidgame.FlappyStarter;
 
 public class PreferencesScreen implements Screen {
@@ -28,6 +29,7 @@ public class PreferencesScreen implements Screen {
     private Label volumeSoundLabel;
     private Label musicOnOffLabel;
     private Label soundOnOffLabel;
+    private AppPreferences preferences;
     private Texture texture;
 
 
@@ -35,13 +37,16 @@ public class PreferencesScreen implements Screen {
         parent = flappyStarter;
         /// create stage and set it as input processor
         stage = new Stage(new ScreenViewport());
+    }
 
-        System.out.println("Back key pressed!");
+    public AppPreferences getPreferences() {
+        return this.preferences;
     }
 
     @Override
     public void show() {
         stage.clear();
+        preferences = new AppPreferences();
         Gdx.input.setInputProcessor(stage);
 
         Gdx.input.setCatchBackKey(true);
@@ -64,12 +69,19 @@ public class PreferencesScreen implements Screen {
 
         // music volume
         final Slider volumeMusicSlider = new Slider(0f, 1f, 0.1f, false, skin);
+
         volumeMusicSlider.setValue(parent.getPreferences().getMusicVolume());
+
+
         volumeMusicSlider.addListener(new EventListener() {
             @Override
             public boolean handle(Event event) {
-                parent.getPreferences().setMusicVolume(volumeMusicSlider.getValue());
+                //parent.getPreferences().setMusicVolume(volumeMusicSlider.getValue());
+                Gdx.app.getPreferences("b2dtut").putFloat("volume",volumeMusicSlider.getValue()).flush();
+
                 // updateVolumeLabel();
+                parent.setMusicVolume(volumeMusicSlider.getValue());
+                System.out.println("sound music slider engaged " + parent.getPreferences().getMusicVolume());
                 return false;
             }
         });
@@ -77,11 +89,15 @@ public class PreferencesScreen implements Screen {
         // sound volume
         final Slider soundMusicSlider = new Slider(0f, 1f, 0.1f, false, skin);
         soundMusicSlider.setValue(parent.getPreferences().getSoundVolume());
+        //soundMusicSlider.setScale(0,0);
         soundMusicSlider.addListener(new EventListener() {
             @Override
             public boolean handle(Event event) {
-                parent.getPreferences().setSoundVolume(soundMusicSlider.getValue());
+                //parent.getPreferences().setSoundVolume(soundMusicSlider.getValue());
                 // updateVolumeLabel();
+                Gdx.app.getPreferences("b2dtut").putFloat("sound",soundMusicSlider.getValue()).flush();
+
+                System.out.println("sound music slider engaged " + soundMusicSlider.getValue());
                 return false;
             }
         });
@@ -93,7 +109,8 @@ public class PreferencesScreen implements Screen {
             @Override
             public boolean handle(Event event) {
                 boolean enabled = musicCheckbox.isChecked();
-                parent.getPreferences().setMusicEnabled(enabled);
+                parent.onOffMusic(enabled);
+                System.out.println("music checkbox checked " + enabled);
                 return false;
             }
         });
@@ -106,6 +123,9 @@ public class PreferencesScreen implements Screen {
             public boolean handle(Event event) {
                 boolean enabled = soundEffectsCheckbox.isChecked();
                 parent.getPreferences().setSoundEffectsEnabled(enabled);
+                System.out.println("sound checkbox checked " + enabled);
+                System.out.println(" get music volume " + parent.getPreferences().getMusicVolume());
+                System.out.println(" get music volume " + preferences.getMusicVolume());
                 return false;
             }
         });
@@ -124,6 +144,7 @@ public class PreferencesScreen implements Screen {
         titleLabel = new Label("Preferences", skin);
         titleLabel.setFontScale(1.5f);
         volumeMusicLabel = new Label("Music Volume", skin);
+        //volumeMusicLabel.setFontScale(4);
         volumeSoundLabel = new Label("Sound Volume", skin);
         musicOnOffLabel = new Label("Music ON/OFF", skin);
         soundOnOffLabel = new Label("Sound Effect ON/OFF", skin);

@@ -6,6 +6,7 @@ package com.jbcteam4.androidgame.sprites;
         import com.badlogic.gdx.graphics.g2d.TextureRegion;
         import com.badlogic.gdx.math.Rectangle;
         import com.badlogic.gdx.math.Vector3;
+        import com.jbcteam4.androidgame.states.PlayState;
 
 
 public class Bird {
@@ -50,7 +51,7 @@ public class Bird {
 
     }
     public void jump(){
-        velosity.y = 250;
+        velosity.y = 220;
         flap.play();
     }
 

@@ -5,11 +5,19 @@ package com.jbcteam4.androidgame.states;
         import com.badlogic.gdx.Gdx;
         import com.badlogic.gdx.Input;
         import com.badlogic.gdx.graphics.Texture;
+        import com.badlogic.gdx.graphics.g2d.Batch;
         import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+        import com.badlogic.gdx.graphics.g2d.BitmapFont;    // adding Fonts
+        import com.badlogic.gdx.graphics.Color;             // adding Colors
         import com.badlogic.gdx.math.Vector2;
         import com.badlogic.gdx.utils.Array;
         import com.jbcteam4.androidgame.FlappyStarter;
         import com.jbcteam4.androidgame.sprites.Bird;
+        import com.jbcteam4.androidgame.FlappyStarter;
+
+//        import android.content.Context;
+ //       import android.content.SharedPreferences;
+  //      import android.preference.PreferenceManager;
 
         import com.jbcteam4.androidgame.sprites.Tube;
 
@@ -28,12 +36,21 @@ public class PlayState extends State {
 
     private Array<Tube> tubes;
 
+//    SharedPreferences prefs = this.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE);
+//    int oldScore = prefs.getInt("highScore", 0);
+
+    public int frames = 0;      // adding frames
+    public static int score = 0;       // adding score field
+    public static int hiScore = 4;    // adding hiscore
+
     public PlayState(GameStateManager gsm) {
+
         super(gsm);
         bird = new Bird(50, 300);
         camera.setToOrtho(false, FlappyStarter.WIDTH / 2, FlappyStarter.HEIGHT / 2);
-        bg = new Texture("bg.png");
+        bg = new Texture("bg-01.png");
         ground = new Texture("ground.png");
+
         groundPos1 = new Vector2(camera.position.x - camera.viewportWidth / 2, GROUND_Y_OFFSET);
         groundPos2 = new Vector2((camera.position.x - camera.viewportWidth / 2) + ground.getWidth(), GROUND_Y_OFFSET);
 
@@ -44,10 +61,20 @@ public class PlayState extends State {
         }
     }
 
+    public static void setNewHiScore() {
+        if (score > hiScore)
+            hiScore = score;
+    }
+
+    public void counter() {
+        score = frames / 63;
+    }
+
     @Override
     protected void handleInput() {
-        if (Gdx.input.justTouched())
+        if (Gdx.input.justTouched()){
             bird.jump();
+        }
 
     }
 
@@ -66,15 +93,27 @@ public class PlayState extends State {
                 tube.reposition(tube.getPosTopTube().x + ((Tube.TUBE_WIDTH + TUBE_SPACING) * TUBE_COUNT));
             }
 
-            if (tube.collides(bird.getBounds()))
+            if (tube.collides(bird.getBounds())) {
                 gsm.set(new GameOver(gsm));
+            }
         }
+        frames++;
+        score = frames / 73;
         camera.update();
 
     }
 
     @Override
     public void render(SpriteBatch sb) {
+
+        BitmapFont font = new BitmapFont(); // font
+        font.setColor(Color.BLACK);         // font
+        font.getData().setScale(2);         // font
+
+        BitmapFont font1 = new BitmapFont(); // font
+        font1.setColor(Color.GRAY);         // font
+        font1.getData().setScale(2);         // font
+
         sb.setProjectionMatrix(camera.combined);
         sb.begin();
         sb.draw(bg, camera.position.x - (camera.viewportWidth / 2), 0);
@@ -82,10 +121,14 @@ public class PlayState extends State {
         for (Tube tube : tubes) {
             sb.draw(tube.getTopTube(), tube.getPosBotTube().x, tube.getPosTopTube().y);
             sb.draw(tube.getBottomTube(), tube.getPosBotTube().x, tube.getPosBotTube().y);
+
         }
         sb.draw(ground, groundPos1.x, groundPos1.y);
         sb.draw(ground, groundPos2.x, groundPos2.y);
 
+        font.draw(sb, String.valueOf(score), camera.position.x - (camera.viewportWidth / 2) + 10, 43); // score output
+//        font.draw(sb, String.valueOf(hiScore), camera.position.x - (camera.viewportWidth / 2) + 40, 43); // test score output
+        font1.draw(sb, "HiScore: " + String.valueOf(hiScore), camera.position.x - (camera.viewportWidth / 2) + 75, 43); // jumps output
         sb.end();
 
 

@@ -10,6 +10,7 @@ import com.jbcteam4.androidgame.views.MainScreen;
 import com.jbcteam4.androidgame.views.MenuScreen;
 import com.jbcteam4.androidgame.views.PreferencesScreen;
 
+
 public class FlappyStarter extends Game {
 
 
@@ -78,6 +79,18 @@ public class FlappyStarter extends Game {
         playingSong.dispose();
         assMan.manager.dispose();
         Gdx.input.setInputProcessor(null);
+    }
+
+    public void setMusicVolume(float value){
+        this.playingSong.setVolume(value);
+    }
+
+    public void onOffMusic(boolean state){
+        if (!state){
+            this.playingSong.setVolume(0);
+        } else {
+            this.playingSong.setVolume(getPreferences().getMusicVolume());
+        }
     }
 
 }
