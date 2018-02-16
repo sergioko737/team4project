@@ -11,10 +11,19 @@ import com.jbcteam4.androidgame.views.MenuScreen;
 import com.jbcteam4.androidgame.views.PreferencesScreen;
 
 
+/**
+ * The type Flappy starter.
+ */
 public class FlappyStarter extends Game {
 
 
+    /**
+     * The constant WIDTH.
+     */
     public static final int WIDTH = 480;
+    /**
+     * The constant HEIGHT.
+     */
     public static final int HEIGHT = 800;
 
 
@@ -24,13 +33,28 @@ public class FlappyStarter extends Game {
     private MainScreen mainScreen;
     private EndScreen endScreen;
     private AppPreferences preferences;
+    /**
+     * The Ass man.
+     */
     public MyAssetManager assMan = new MyAssetManager();
     private Music playingSong;
 
+    /**
+     * The constant MENU.
+     */
     public final static int MENU = 0;
+    /**
+     * The constant PREFERENCES.
+     */
     public final static int PREFERENCES = 1;
+    /**
+     * The constant APPLICATION.
+     */
     public final static int APPLICATION = 2;
-    public final static int ENDGAME = 3;
+    /**
+     * The constant ENDGAME.
+     */
+    private final static int ENDGAME = 3;
 
     @Override
     public void create() {
@@ -44,12 +68,18 @@ public class FlappyStarter extends Game {
         assMan.manager.finishLoading();
         // loads the 2 sounds we use
         playingSong = assMan.manager.get("music.mp3");
-
+        playingSong.setVolume(getPreferences().getMusicVolume());
         playingSong.play();
 
     }
 
+    /**
+     * Change screen.
+     *
+     * @param screen the screen
+     */
     public void changeScreen(int screen) {
+
         switch (screen) {
             case MENU:
                 if (menuScreen == null) menuScreen = new MenuScreen(this);
@@ -70,6 +100,11 @@ public class FlappyStarter extends Game {
         }
     }
 
+    /**
+     * Gets preferences.
+     *
+     * @return the preferences
+     */
     public AppPreferences getPreferences() {
         return this.preferences;
     }
@@ -81,10 +116,20 @@ public class FlappyStarter extends Game {
         Gdx.input.setInputProcessor(null);
     }
 
+    /**
+     * Set music volume.
+     *
+     * @param value the value
+     */
     public void setMusicVolume(float value){
         this.playingSong.setVolume(value);
     }
 
+    /**
+     * On off music.
+     *
+     * @param state the state
+     */
     public void onOffMusic(boolean state){
         if (!state){
             this.playingSong.setVolume(0);
