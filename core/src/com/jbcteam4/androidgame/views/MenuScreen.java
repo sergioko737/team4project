@@ -139,6 +139,7 @@ public class MenuScreen implements Screen {
     public void dispose() {
         // dispose of assets when not needed anymore
         stage.dispose();
+        backGround.dispose();
     }
 
 }

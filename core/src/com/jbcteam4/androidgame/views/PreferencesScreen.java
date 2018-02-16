@@ -221,6 +221,8 @@ public class PreferencesScreen implements Screen {
     @Override
     public void dispose() {
         // Auto-generated method stub
+        stage.dispose();
+        texture.dispose();
 
     }
 
