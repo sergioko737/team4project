@@ -57,8 +57,11 @@ public class PreferencesScreen implements Screen {
         // this table.
         Table table = new Table();
         table.setFillParent(true);
-      //  table.setTransform(true);
-       // table.scaleBy(3.3f);
+        if(Gdx.graphics.getWidth() >800)
+        {
+         table.setTransform(true);
+         table.scaleBy(3.3f);
+        }
         table.setOrigin(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
 
         // table.setDebug(true);

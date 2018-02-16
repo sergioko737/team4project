@@ -49,8 +49,12 @@ public class MenuScreen implements Screen {
 
 
         table.setFillParent(true);
-       // table.setTransform(true);
-      //  table.scaleBy(1.1f);
+        if(Gdx.graphics.getWidth() > 800){
+            table.setTransform(true);
+            table.scaleBy(1.1f);
+        }
+
+
         //table.setDebug(true);
         stage.addActor(table);
 
