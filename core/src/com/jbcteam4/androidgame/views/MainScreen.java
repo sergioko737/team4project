@@ -17,6 +17,10 @@ import com.jbcteam4.androidgame.states.MenuState;
  */
 
 public class MainScreen implements Screen {
+    public static final int WIDTH = 480;
+    public static final int HEIGHT = 800;
+
+    public static final String TITLE = "Flappy Demo";
 
     private GameStateManager gsm;
     private SpriteBatch batch;
@@ -59,6 +63,7 @@ public class MainScreen implements Screen {
 
 
         if (Gdx.input.isKeyPressed(Input.Keys.BACK)){
+            System.out.println("Back button pressed");
             parent.changeScreen(FlappyStarter.MENU);
         }
     }

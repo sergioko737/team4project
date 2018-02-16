@@ -10,8 +10,9 @@ public class AppPreferences {
     private static final String PREF_SOUND_ENABLED = "sound.enabled";
     private static final String PREF_SOUND_VOL = "sound";
     private static final String PREFS_NAME = "b2dtut";
+    private static final String PREF_HI_SCORE = "hiScore";
 
-    public Preferences getPrefs() {
+    public static Preferences getPrefs() {
         return Gdx.app.getPreferences(PREFS_NAME);
     }
 
@@ -29,8 +30,7 @@ public class AppPreferences {
     }
 
     public void setMusicEnabled(boolean musicEnabled) {
-        getPrefs().putBoolean(PREF_MUSIC_ENABLED, musicEnabled);
-        getPrefs().flush();
+        getPrefs().putBoolean(PREF_MUSIC_ENABLED, musicEnabled).flush();
     }
 
     public float getMusicVolume() {
@@ -38,13 +38,9 @@ public class AppPreferences {
     }
 
     public void setMusicVolume(float volume) {
+        getPrefs().putFloat(PREF_MUSIC_VOLUME, volume).flush();
 
-        System.out.println("sound music updated " + volume);
-        getPrefs().putFloat(PREF_MUSIC_VOLUME, volume);
-        getPrefs().flush();
-        System.out.println("AND NOW IT IS " + getPrefs().getFloat(PREF_MUSIC_VOLUME));
-        System.out.println(getPrefs().toString());
-        getPrefs().flush();
+
     }
 
     public float getSoundVolume() {
@@ -52,7 +48,16 @@ public class AppPreferences {
     }
 
     public void setSoundVolume(float volume) {
-        getPrefs().putFloat(PREF_SOUND_VOL, volume);
+        getPrefs().putFloat(PREF_SOUND_VOL, volume).flush();
+    }
+
+    public static void setPrefHiScore(int newHiscore) {
+        getPrefs().putInteger(PREF_HI_SCORE, newHiscore);
         getPrefs().flush();
     }
+
+    public static int getPrefHiScore() {
+        return getPrefs().getInteger(PREF_HI_SCORE, 3);
+    }
+
 }

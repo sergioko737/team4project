@@ -3,6 +3,7 @@ package com.jbcteam4.androidgame.views;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -30,7 +31,7 @@ public class MenuScreen implements Screen {
         parent = flappyStarter;
         /// create stage and set it as input processor
         stage = new Stage(new ScreenViewport());
-        backGround = new Texture("bg.png");
+        backGround = new Texture("bg-01.png");
         parent.assMan.queueAddSkin();
         parent.assMan.manager.finishLoading();
         skin = parent.assMan.manager.get("skin/glassy-ui.json");
@@ -60,7 +61,7 @@ public class MenuScreen implements Screen {
 
         //create buttons
         TextButton newGame = new TextButton("New Game", skin);
-        TextButton preferences = new TextButton("Preferences", skin);
+        TextButton preferences = new TextButton(" Preferences ", skin);
         TextButton exit = new TextButton("Exit", skin);
 
         //add buttons to table

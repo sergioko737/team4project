@@ -2,8 +2,11 @@ package com.jbcteam4.androidgame.states;
 
 
         import com.badlogic.gdx.Gdx;
+        import com.badlogic.gdx.graphics.Color;
         import com.badlogic.gdx.graphics.Texture;
+        import com.badlogic.gdx.graphics.g2d.BitmapFont;
         import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+        import com.jbcteam4.androidgame.AppPreferences;
         import com.jbcteam4.androidgame.FlappyStarter;
         import com.jbcteam4.androidgame.states.PlayState;
 
@@ -38,10 +41,18 @@ public class GameOver extends State {
 
     @Override
     public void render(SpriteBatch sb) {
+
+        BitmapFont font = new BitmapFont(); // font
+        font.setColor(Color.WHITE);         // font
+        font.getData().setScale(2);         // font
+
         sb.setProjectionMatrix(camera.combined);
         sb.begin();
         sb.draw(background, 0, 0);
         sb.draw(gameover, camera.position.x - gameover.getWidth() / 2, camera.position.y);
+        font.draw(sb, String.valueOf("Your score: "+ PlayState.score), camera.position.x - (camera.viewportWidth / 2) + 33, 75); // score output
+        font.draw(sb, String.valueOf("Hiscore: "+ PlayState.hiScore), camera.position.x - (camera.viewportWidth / 2) + 33, 40); // score output
+
         sb.end();
 
     }

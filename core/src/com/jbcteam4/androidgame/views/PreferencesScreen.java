@@ -73,47 +73,53 @@ public class PreferencesScreen implements Screen {
         // music volume
         final Slider volumeMusicSlider = new Slider(0f, 1f, 0.1f, false, skin);
 
-        volumeMusicSlider.setValue(parent.getPreferences().getMusicVolume());
+        volumeMusicSlider.setValue(preferences.getMusicVolume());
 
 
         volumeMusicSlider.addListener(new EventListener() {
             @Override
             public boolean handle(Event event) {
-                //parent.getPreferences().setMusicVolume(volumeMusicSlider.getValue());
-                Gdx.app.getPreferences("b2dtut").putFloat("volume",volumeMusicSlider.getValue()).flush();
+                preferences.getPrefs().putFloat("volume",volumeMusicSlider.getValue()).flush();
+                if (preferences.isMusicEnabled()) {
+                    parent.playingSong.setVolume(volumeMusicSlider.getValue());
+                }
 
-                // updateVolumeLabel();
-                parent.setMusicVolume(volumeMusicSlider.getValue());
-                System.out.println("sound music slider engaged " + parent.getPreferences().getMusicVolume());
+                System.out.println("TOBEREMOVED sound music slider engaged " + preferences.getMusicVolume());
                 return false;
             }
         });
 
         // sound volume
         final Slider soundMusicSlider = new Slider(0f, 1f, 0.1f, false, skin);
-        soundMusicSlider.setValue(parent.getPreferences().getSoundVolume());
-        //soundMusicSlider.setScale(0,0);
+
+        soundMusicSlider.setValue(preferences.getSoundVolume());
+
         soundMusicSlider.addListener(new EventListener() {
             @Override
             public boolean handle(Event event) {
-                //parent.getPreferences().setSoundVolume(soundMusicSlider.getValue());
-                // updateVolumeLabel();
-                Gdx.app.getPreferences("b2dtut").putFloat("sound",soundMusicSlider.getValue()).flush();
 
-                System.out.println("sound music slider engaged " + soundMusicSlider.getValue());
+                preferences.getPrefs().putFloat("sound", soundMusicSlider.getValue()).flush();
+                System.out.println("TOBEREMOVED sound fx slider engaged " + soundMusicSlider.getValue());
                 return false;
             }
         });
 
         // music on/off
         final CheckBox musicCheckbox = new CheckBox(null, skin);
-        musicCheckbox.setChecked(parent.getPreferences().isMusicEnabled());
+        musicCheckbox.setChecked(preferences.isMusicEnabled());
         musicCheckbox.addListener(new EventListener() {
             @Override
             public boolean handle(Event event) {
-                boolean enabled = musicCheckbox.isChecked();
-                parent.onOffMusic(enabled);
-                System.out.println("music checkbox checked " + enabled);
+                preferences.getPrefs().putBoolean("music.enabled", musicCheckbox.isChecked()).flush();
+                if (!musicCheckbox.isChecked()){
+                    parent.playingSong.setVolume(0);
+                } else {
+                    parent.playingSong.setVolume(volumeMusicSlider.getValue());
+                }
+               /* boolean enabled = musicCheckbox.isChecked();
+                parent.onOffMusic(enabled);*/
+
+                System.out.println("TOBEREMOVED music checkbox checked " + musicCheckbox.isChecked());
                 return false;
             }
         });
@@ -126,9 +132,9 @@ public class PreferencesScreen implements Screen {
             public boolean handle(Event event) {
                 boolean enabled = soundEffectsCheckbox.isChecked();
                 parent.getPreferences().setSoundEffectsEnabled(enabled);
-                System.out.println("sound checkbox checked " + enabled);
-                System.out.println(" get music volume " + parent.getPreferences().getMusicVolume());
-                System.out.println(" get music volume " + preferences.getMusicVolume());
+                System.out.println("TOBEREMOVED sound checkbox checked " + enabled);
+                System.out.println("TOBEREMOVED get music volume " + parent.getPreferences().getMusicVolume());
+                System.out.println("TOBEREMOVED get music volume " + preferences.getMusicVolume());
                 return false;
             }
         });
@@ -139,7 +145,7 @@ public class PreferencesScreen implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 parent.changeScreen(FlappyStarter.MENU);
-                System.out.println("Back button pressed");
+                System.out.println("TOBEREMOVED Back button pressed");
 
             }
         });

@@ -13,12 +13,7 @@ package com.jbcteam4.androidgame.states;
         import com.badlogic.gdx.utils.Array;
         import com.jbcteam4.androidgame.FlappyStarter;
         import com.jbcteam4.androidgame.sprites.Bird;
-        import com.jbcteam4.androidgame.FlappyStarter;
-
-//        import android.content.Context;
- //       import android.content.SharedPreferences;
-  //      import android.preference.PreferenceManager;
-
+        import com.jbcteam4.androidgame.AppPreferences;
         import com.jbcteam4.androidgame.sprites.Tube;
 
 
@@ -41,7 +36,7 @@ public class PlayState extends State {
 
     public int frames = 0;      // adding frames
     public static int score = 0;       // adding score field
-    public static int hiScore = 4;    // adding hiscore
+    public static int hiScore = AppPreferences.getPrefHiScore();    // adding hiscore
 
     public PlayState(GameStateManager gsm) {
 
@@ -62,8 +57,12 @@ public class PlayState extends State {
     }
 
     public static void setNewHiScore() {
-        if (score > hiScore)
+        if (score > hiScore) {
             hiScore = score;
+            AppPreferences.setPrefHiScore(score);
+//            hiScore = AppPreferences.getPrefHiScore();
+        }
+
     }
 
     public void counter() {

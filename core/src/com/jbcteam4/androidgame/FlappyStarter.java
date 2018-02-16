@@ -36,7 +36,7 @@ public class FlappyStarter extends Game {
      * The Ass man.
      */
     public MyAssetManager assMan = new MyAssetManager();
-    private Music playingSong;
+    public Music playingSong;
 
     /**
      * The constant MENU.
@@ -53,7 +53,7 @@ public class FlappyStarter extends Game {
     /**
      * The constant ENDGAME.
      */
-    private final static int ENDGAME = 3;
+    public final static int ENDGAME = 3;
 
     @Override
     public void create() {
@@ -67,7 +67,13 @@ public class FlappyStarter extends Game {
         assMan.manager.finishLoading();
         // loads the 2 sounds we use
         playingSong = assMan.manager.get("music.mp3");
-        playingSong.setVolume(getPreferences().getMusicVolume());
+        if(preferences.isMusicEnabled()) {
+            System.out.println("TOBEREMOVED startup if condition music config engaged" + preferences.isMusicEnabled());
+            playingSong.setVolume(preferences.getMusicVolume());
+        } else{
+            System.out.println("TOBEREMOVED startup else condition music config engaged" + preferences.isMusicEnabled());
+            playingSong.setVolume(0);
+        }
         playingSong.play();
 
     }
