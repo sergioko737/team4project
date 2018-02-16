@@ -3,6 +3,7 @@ package com.jbcteam4.androidgame.loader;
 /**
  * Created by student on 18.2.13.
  */
+//TODO deside if we need this asset manager
 
 
 import com.badlogic.gdx.assets.AssetManager;

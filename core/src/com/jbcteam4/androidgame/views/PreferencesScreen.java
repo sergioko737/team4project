@@ -31,7 +31,6 @@ public class PreferencesScreen implements Screen {
     private Label soundOnOffLabel;
     private AppPreferences preferences;
     private Texture texture;
-//
 
     public PreferencesScreen(FlappyStarter flappyStarter) {
         parent = flappyStarter;
@@ -148,7 +147,6 @@ public class PreferencesScreen implements Screen {
         titleLabel = new Label("Preferences", skin);
         titleLabel.setFontScale(1.5f);
         volumeMusicLabel = new Label("Music Volume", skin);
-        //volumeMusicLabel.setFontScale(4);
         volumeSoundLabel = new Label("Sound Volume", skin);
         musicOnOffLabel = new Label("Music ON/OFF", skin);
         soundOnOffLabel = new Label("Sound Effect ON/OFF", skin);
@@ -186,7 +184,7 @@ public class PreferencesScreen implements Screen {
         stage.getBatch().end();
 
         if (Gdx.input.isKeyPressed(Input.Keys.BACK)) {
-            System.out.println("WTF mate!?");
+
             parent.changeScreen(FlappyStarter.MENU);
 
         }

@@ -16,7 +16,6 @@ import com.jbcteam4.androidgame.views.PreferencesScreen;
  */
 public class FlappyStarter extends Game {
 
-
     /**
      * The constant WIDTH.
      */
