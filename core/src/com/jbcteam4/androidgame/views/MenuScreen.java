@@ -3,6 +3,7 @@ package com.jbcteam4.androidgame.views;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -34,6 +35,7 @@ public class MenuScreen implements Screen {
         parent.assMan.queueAddSkin();
         parent.assMan.manager.finishLoading();
         skin = parent.assMan.manager.get("skin/glassy-ui.json");
+        texture = new Texture("bg.png");
 
     }
 
@@ -45,9 +47,10 @@ public class MenuScreen implements Screen {
         Table table = new Table();
         table.setOrigin(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
 
+
         table.setFillParent(true);
-        table.setTransform(true);
-        table.scaleBy(1.1f);
+       // table.setTransform(true);
+      //  table.scaleBy(1.1f);
         //table.setDebug(true);
         stage.addActor(table);
 
@@ -99,7 +102,7 @@ public class MenuScreen implements Screen {
 
         //Set background image
         stage.getBatch().begin();
-        texture = new Texture("bg.png");
+
         stage.getBatch().draw(texture, 0, 0, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         stage.getBatch().end();
 

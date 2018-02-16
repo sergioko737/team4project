@@ -37,6 +37,7 @@ public class PreferencesScreen implements Screen {
         parent = flappyStarter;
         /// create stage and set it as input processor
         stage = new Stage(new ScreenViewport());
+        texture = new Texture("bg.png");
     }
 
     public AppPreferences getPreferences() {
@@ -56,8 +57,8 @@ public class PreferencesScreen implements Screen {
         // this table.
         Table table = new Table();
         table.setFillParent(true);
-        table.setTransform(true);
-        table.scaleBy(3.3f);
+      //  table.setTransform(true);
+       // table.scaleBy(3.3f);
         table.setOrigin(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
 
         // table.setDebug(true);
@@ -177,7 +178,7 @@ public class PreferencesScreen implements Screen {
         Gdx.gl.glClearColor(0f, 0f, 0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.getBatch().begin();
-        texture = new Texture("bg.png");
+
         stage.getBatch().draw(texture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         stage.getBatch().end();
 
