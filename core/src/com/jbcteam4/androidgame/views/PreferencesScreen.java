@@ -31,12 +31,15 @@ public class PreferencesScreen implements Screen {
     private Label soundOnOffLabel;
     private AppPreferences preferences;
     private Texture texture;
+    Skin skin;
 
     public PreferencesScreen(FlappyStarter flappyStarter) {
         parent = flappyStarter;
         /// create stage and set it as input processor
         stage = new Stage(new ScreenViewport());
         texture = new Texture("bg.png");
+        // temporary until we have asset manager in
+        skin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
     }
 
     public AppPreferences getPreferences() {
@@ -67,8 +70,7 @@ public class PreferencesScreen implements Screen {
         stage.addActor(table);
 
 
-        // temporary until we have asset manager in
-        Skin skin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
+
 
         // music volume
         final Slider volumeMusicSlider = new Slider(0f, 1f, 0.1f, false, skin);
@@ -182,6 +184,7 @@ public class PreferencesScreen implements Screen {
     @Override
     public void render(float delta) {
         // clear the screen ready for next set of images to be drawn
+        Gdx.graphics.setContinuousRendering(false);
         Gdx.gl.glClearColor(0f, 0f, 0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.getBatch().begin();
@@ -193,11 +196,13 @@ public class PreferencesScreen implements Screen {
 
             parent.changeScreen(FlappyStarter.MENU);
 
+
         }
 
         // tell our stage to do actions and draw itself
-        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
+        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
+
 
     }
 
@@ -230,6 +235,8 @@ public class PreferencesScreen implements Screen {
         // Auto-generated method stub
         stage.dispose();
         texture.dispose();
+        skin.dispose();
+        parent.dispose();
 
     }
 

@@ -28,6 +28,9 @@ public class PlayState extends State {
     private Texture ground;
     private Vector2 groundPos1, groundPos2;
     private FlappyStarter parent;
+    private BitmapFont font;
+    private BitmapFont font1;
+
 
     private Array<Tube> tubes;
 
@@ -40,6 +43,8 @@ public class PlayState extends State {
 
     public PlayState(GameStateManager gsm) {
 
+
+
         super(gsm);
         bird = new Bird(50, 300);
         camera.setToOrtho(false, FlappyStarter.WIDTH / 2, FlappyStarter.HEIGHT / 2);
@@ -50,6 +55,8 @@ public class PlayState extends State {
         groundPos2 = new Vector2((camera.position.x - camera.viewportWidth / 2) + ground.getWidth(), GROUND_Y_OFFSET);
 
         tubes = new Array<Tube>();
+        font = new BitmapFont();
+        font1 = new BitmapFont();
 
         for (int i = 0; i < TUBE_COUNT; i++){
             tubes.add(new Tube(i * (TUBE_SPACING + Tube.TUBE_WIDTH)));
@@ -105,11 +112,11 @@ public class PlayState extends State {
     @Override
     public void render(SpriteBatch sb) {
 
-        BitmapFont font = new BitmapFont(); // font
+
         font.setColor(Color.BLACK);         // font
         font.getData().setScale(2);         // font
 
-        BitmapFont font1 = new BitmapFont(); // font
+
         font1.setColor(Color.GRAY);         // font
         font1.getData().setScale(2);         // font
 

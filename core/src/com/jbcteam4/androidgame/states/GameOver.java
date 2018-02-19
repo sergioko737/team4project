@@ -16,12 +16,14 @@ public class GameOver extends State {
 
     private Texture background;
     private Texture gameover;
+    BitmapFont font;
 
     public GameOver(GameStateManager gsm) {
         super(gsm);
         camera.setToOrtho(false, FlappyStarter.WIDTH / 2, FlappyStarter.HEIGHT / 2);
         background = new Texture("bg-01.png");
         gameover = new Texture("gameover.png");
+        font = new BitmapFont();
         PlayState.setNewHiScore();
     }
 
@@ -42,7 +44,7 @@ public class GameOver extends State {
     @Override
     public void render(SpriteBatch sb) {
 
-        BitmapFont font = new BitmapFont(); // font
+
         font.setColor(Color.WHITE);         // font
         font.getData().setScale(2);         // font
 

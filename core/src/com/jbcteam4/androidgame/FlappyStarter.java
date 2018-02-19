@@ -4,7 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.jbcteam4.androidgame.loader.MyAssetManager;
-import com.jbcteam4.androidgame.views.EndScreen;
+import com.jbcteam4.androidgame.views.CreditScreen;
 import com.jbcteam4.androidgame.views.LoadingScreen;
 import com.jbcteam4.androidgame.views.MainScreen;
 import com.jbcteam4.androidgame.views.MenuScreen;
@@ -30,8 +30,8 @@ public class FlappyStarter extends Game {
     private PreferencesScreen preferencesScreen;
     private MenuScreen menuScreen;
     private MainScreen mainScreen;
-    private EndScreen endScreen;
     private AppPreferences preferences;
+    private CreditScreen creditScreen;
     /**
      * The Ass man.
      */
@@ -53,10 +53,11 @@ public class FlappyStarter extends Game {
     /**
      * The constant ENDGAME.
      */
-    public final static int ENDGAME = 3;
+    public final static int CREDITS = 3;
 
     @Override
     public void create() {
+        Gdx.graphics.requestRendering();
         loadingScreen = new LoadingScreen(this);
         preferences = new AppPreferences();
         setScreen(loadingScreen);
@@ -98,9 +99,9 @@ public class FlappyStarter extends Game {
                 if (mainScreen == null) mainScreen = new MainScreen(this);
                 this.setScreen(mainScreen);
                 break;
-            case ENDGAME:
-                if (endScreen == null) endScreen = new EndScreen(this);
-                this.setScreen(endScreen);
+            case CREDITS:
+                if (creditScreen == null) creditScreen = new CreditScreen(this);
+                this.setScreen(creditScreen);
                 break;
         }
     }

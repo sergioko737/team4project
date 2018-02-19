@@ -57,6 +57,7 @@ public class MainScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        Gdx.graphics.setContinuousRendering(true);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         gsm.update(Gdx.graphics.getDeltaTime());
         gsm.render(batch);

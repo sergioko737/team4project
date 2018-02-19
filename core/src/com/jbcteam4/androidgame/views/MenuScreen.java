@@ -2,16 +2,19 @@ package com.jbcteam4.androidgame.views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.jbcteam4.androidgame.FlappyStarter;
 
@@ -23,6 +26,10 @@ public class MenuScreen implements Screen {
     private Skin skin;
     private SpriteBatch batch;
     private Texture texture;
+    TextButton newGame;
+    TextButton preferences;
+    TextButton exit;
+    Label credits;
 
 
     private Texture backGround;
@@ -36,6 +43,13 @@ public class MenuScreen implements Screen {
         parent.assMan.manager.finishLoading();
         skin = parent.assMan.manager.get("skin/glassy-ui.json");
         texture = new Texture("bg.png");
+
+        newGame = new TextButton("New Game", skin);
+        preferences = new TextButton(" Preferences ", skin);
+        exit = new TextButton("Exit", skin);
+        credits = new Label("Credits",skin);
+        credits.setFontScale(2.3f);
+        credits.setColor(Color.BLACK);
 
     }
 
@@ -59,17 +73,14 @@ public class MenuScreen implements Screen {
         stage.addActor(table);
 
 
-        //create buttons
-        TextButton newGame = new TextButton("New Game", skin);
-        TextButton preferences = new TextButton(" Preferences ", skin);
-        TextButton exit = new TextButton("Exit", skin);
-
         //add buttons to table
         table.add(newGame).fillX().uniformX();
         table.row().pad(10, 0, 10, 0);
         table.add(preferences).fillX().uniformX();
-        table.row();
-        table.add(exit).fillX().uniformX();
+        table.row().pad(30, 0, 10, 0);
+        table.add(exit).center();
+        table.row().pad(130, 0, 10, 0);
+        table.add(credits).center();
 
         // create button listeners
         exit.addListener(new ChangeListener() {
@@ -93,11 +104,21 @@ public class MenuScreen implements Screen {
             }
         });
 
+        credits.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                parent.changeScreen(FlappyStarter.CREDITS);
+
+            }
+        });
+
+
     }
 
     @Override
     public void render(float delta) {
         // clear the screen ready for next set of images to be drawn
+        Gdx.graphics.setContinuousRendering(false);
         Gdx.gl.glClearColor(0f, 0f, 0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -144,6 +165,9 @@ public class MenuScreen implements Screen {
         // dispose of assets when not needed anymore
         stage.dispose();
         backGround.dispose();
+        skin.dispose();
+        parent.dispose();
+
     }
 
 }
