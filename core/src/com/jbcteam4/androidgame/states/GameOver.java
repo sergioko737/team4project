@@ -9,6 +9,8 @@ package com.jbcteam4.androidgame.states;
         import com.jbcteam4.androidgame.AppPreferences;
         import com.jbcteam4.androidgame.FlappyStarter;
         import com.jbcteam4.androidgame.states.PlayState;
+        import com.jbcteam4.androidgame.sprites.Tube;
+
 
 
 
@@ -33,6 +35,7 @@ public class GameOver extends State {
     public void handleInput() {
         if(Gdx.input.justTouched()){
             PlayState.score = 0;
+            Tube.setTubeGap(120);
             gsm.set(new PlayState(gsm));
         }
 
@@ -57,7 +60,6 @@ public class GameOver extends State {
         sb.draw(gameover, camera.position.x - gameover.getWidth() / 2, camera.position.y);
         font.draw(sb, String.valueOf("Your score: "+ PlayState.score), camera.position.x - (camera.viewportWidth / 2) + 33, 75); // score output
         font.draw(sb, String.valueOf("Hiscore: "+ PlayState.hiScore), camera.position.x - (camera.viewportWidth / 2) + 33, 40); // score output
-
         sb.end();
 
     }
@@ -66,7 +68,6 @@ public class GameOver extends State {
     public void dispose() {
         background.dispose();
         gameover.dispose();
-
         System.out.println("GameOver Disposed");
 
     }

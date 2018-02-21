@@ -19,9 +19,9 @@ package com.jbcteam4.androidgame.states;
 
 public class PlayState extends State {
 
-    private static final int TUBE_SPACING = 125;
+    private static final int TUBE_SPACING = 125; // 125 standart
     private static final int TUBE_COUNT = 4;
-    private static final int GROUND_Y_OFFSET = -30;
+    private static final int GROUND_Y_OFFSET = -30; // -30 standart
 
     private Bird bird;
     private Texture bg;
@@ -44,11 +44,7 @@ public class PlayState extends State {
     public static int hiScore = AppPreferences.getPrefHiScore();    // adding hiscore
     public static int lives = 3;
 
-   
-
     public PlayState(GameStateManager gsm) {
-
-
 
         super(gsm);
         bird = new Bird(50, 300);
@@ -76,14 +72,10 @@ public class PlayState extends State {
         if (score > hiScore) {
             hiScore = score;
             AppPreferences.setPrefHiScore(score);
-//            hiScore = AppPreferences.getPrefHiScore();
         }
 
     }
 
-//    public void counter() {
-//        score = frames / 63;
-//    }
 
     @Override
     protected void handleInput() {
@@ -124,6 +116,12 @@ public class PlayState extends State {
         liveScore = frames / 73;
 //        score = score + liveScore;
         camera.update();
+
+        if (liveScore > 40){
+            Tube.setTubeGap(75);
+        } else if (liveScore > 20){
+            Tube.setTubeGap(95);
+        }
 
     }
 
