@@ -22,7 +22,6 @@ import com.jbcteam4.androidgame.FlappyStarter;
  * Credit screend
  */
 
-//some random peace of comment
 
 public class CreditScreen implements Screen {
 
