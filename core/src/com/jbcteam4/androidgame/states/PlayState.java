@@ -126,7 +126,7 @@ public class PlayState extends State {
         camera.update();
 
     }
-
+//
     @Override
     public void render(SpriteBatch sb) {
 
