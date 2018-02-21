@@ -94,7 +94,7 @@ public class CreditScreen implements Screen {
         table.add(okLabel).center();
 
     }
-
+//
     @Override
     public void render(float delta) {
         // clear the screen ready for next set of images to be drawn
