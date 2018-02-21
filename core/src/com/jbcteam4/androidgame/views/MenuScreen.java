@@ -27,10 +27,10 @@ public class MenuScreen implements Screen {
     private Skin skin;
     private SpriteBatch batch;
     private Texture texture;
-    TextButton newGame;
-    TextButton preferences;
-    TextButton exit;
-    Label credits;
+    private TextButton newGame;
+    private TextButton preferences;
+    private TextButton exit;
+    private Label credits;
 
 
     private Texture backGround;
@@ -52,9 +52,10 @@ public class MenuScreen implements Screen {
         credits.setFontScale(2.3f);
         credits.setColor(Color.BLACK);
 
-        TextButton newGame = new TextButton("New Game", skin);
-        TextButton preferences = new TextButton("Preferences", skin);
-        TextButton exit = new TextButton("Exit", skin);
+        //create buttons
+        newGame = new TextButton("New Game", skin);
+        preferences = new TextButton("Preferences", skin);
+        exit = new TextButton("Exit", skin);
 
     }
 
@@ -76,10 +77,6 @@ public class MenuScreen implements Screen {
 
         //table.setDebug(true);
         stage.addActor(table);
-
-
-        //create buttons
-
 
         //add buttons to table
         table.add(newGame).fillX().uniformX();

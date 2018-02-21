@@ -7,6 +7,7 @@ package com.jbcteam4.androidgame.desktop;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		System.setProperty("org.lwjgl.opengl.Display.allowSoftwareOpenGL", "true");
 
 		config.title = "Flappy Riga";
 		config.useGL30 = true;

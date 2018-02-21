@@ -35,7 +35,7 @@ public class PreferencesScreen implements Screen {
     private Label backgroundSelectorLabel;
     private Texture texture;
     private Drawable backgroundSelectorPreview;
-    Skin skin;
+    private Skin skin;
 
     public PreferencesScreen(FlappyStarter flappyStarter) {
         parent = flappyStarter;

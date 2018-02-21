@@ -41,7 +41,6 @@ public class CreditScreen implements Screen {
         parent = flappyStarter;
         /// create stage and set it as input processor
         stage = new Stage(new ScreenViewport());
-        // texture = new Texture("bg-01.png");
         skin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
 
 
@@ -73,7 +72,7 @@ public class CreditScreen implements Screen {
         edgarLabel = new Label("Edgar", skin);
         andrisLabel = new Label("Andris", skin);
         okLabel = new Label("Ok", skin);
-        texture = new Texture("bg.png");
+
 
 
         okLabel.addListener(new ClickListener() {
@@ -103,7 +102,6 @@ public class CreditScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.getBatch().begin();
 
-        // stage.getBatch().draw(texture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         stage.getBatch().end();
 
         if (Gdx.input.isKeyPressed(Input.Keys.BACK)) {

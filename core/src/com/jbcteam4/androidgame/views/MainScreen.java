@@ -9,8 +9,10 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.jbcteam4.androidgame.FlappyStarter;
+import com.jbcteam4.androidgame.states.GameOver;
 import com.jbcteam4.androidgame.states.GameStateManager;
 import com.jbcteam4.androidgame.states.MenuState;
+import com.jbcteam4.androidgame.states.PlayState;
 
 /**
  * Created by student on 18.2.13.
@@ -44,8 +46,6 @@ public class MainScreen implements Screen {
         music.play();
         Gdx.gl.glClearColor(1, 0, 0, 1);
         gsm.push(new MenuState(gsm));
-
-
     }
 
     @Override
@@ -66,6 +66,10 @@ public class MainScreen implements Screen {
         if (Gdx.input.isKeyPressed(Input.Keys.BACK)){
             System.out.println("Back button pressed");
             parent.changeScreen(FlappyStarter.MENU);
+            PlayState.score = 0;
+            PlayState.lives = 3;
+            gsm.set(new PlayState(gsm));
+
         }
     }
 
@@ -93,6 +97,7 @@ public class MainScreen implements Screen {
 
     @Override
     public void dispose() {
+
 
     }
 }
