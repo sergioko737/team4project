@@ -19,7 +19,7 @@ public class StillAlive extends State {
     public StillAlive(GameStateManager gsm) {
         super(gsm);
         camera.setToOrtho(false, FlappyStarter.WIDTH / 2, FlappyStarter.HEIGHT / 2);
-        background = new Texture("bg-02.png");
+        background = new Texture(AppPreferences.getPrefBackground());
         tryagain = new Texture("tryagain.png");
         font = new BitmapFont();
 

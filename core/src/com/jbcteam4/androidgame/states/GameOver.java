@@ -30,7 +30,7 @@ public class GameOver extends State {
         camera.setToOrtho(false, FlappyStarter.WIDTH / 2, FlappyStarter.HEIGHT / 2);
         background = new Texture(AppPreferences.getPrefBackground());
         gameover = new Texture("gameover.png");
-        animation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP_PINGPONG, Gdx.files.internal("ohhnoo-04.gif").read());
+        animation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP_PINGPONG, Gdx.files.internal("giphy.gif").read());
         font = new BitmapFont();
         PlayState.lives = 3;
         PlayState.setNewHiScore();

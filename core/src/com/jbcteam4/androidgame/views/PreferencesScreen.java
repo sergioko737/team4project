@@ -32,6 +32,9 @@ public class PreferencesScreen implements Screen {
     private Stage stage;
     public Texture texture;
     private Skin skin;
+    private ImageButton ava1;
+    private ImageButton ava2;
+    private ImageButton ava3;
 
     public PreferencesScreen(FlappyStarter flappyStarter) {
         parent = flappyStarter;
@@ -68,31 +71,56 @@ public class PreferencesScreen implements Screen {
         TextureRegion avaTextureRegion01 = new TextureRegion(avaTexture01);
         TextureRegionDrawable avaTextureRegionDrawable = new TextureRegionDrawable(avaTextureRegion01);
 
-        final ImageButton ava1 = new ImageButton(avaTextureRegionDrawable);
+        ava1 = new ImageButton(avaTextureRegionDrawable);
 
-        ava1.addListener(new EventListener() {
-            @Override
-            public boolean handle(Event event) {
-                ava1.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(AppPreferences.getPrefBirdAvatar()))));
-                //ava2.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(AppPreferences.getPrefBirdAvatar()))));
-                //ava3.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(AppPreferences.getPrefBirdAvatar()))));
-
-                return false;
-            }
-        });
 
         Texture avaTexture02 = new Texture(Gdx.files.internal("birdAccenture.png"));
         TextureRegion avaTextureRegion02 = new TextureRegion(avaTexture02);
         TextureRegionDrawable avaTextureRegionDrawable02 = new TextureRegionDrawable(avaTextureRegion02);
 
-        final ImageButton ava2 = new ImageButton(avaTextureRegionDrawable02);
+        ava2 = new ImageButton(avaTextureRegionDrawable02);
 
         Texture avaTexture03 = new Texture(Gdx.files.internal("birdDefault.png"));
         TextureRegion avaTextureRegion03 = new TextureRegion(avaTexture03);
         TextureRegionDrawable avaTextureRegionDrawable03 = new TextureRegionDrawable(avaTextureRegion03);
 
-        final ImageButton ava3 = new ImageButton(avaTextureRegionDrawable03);
+        ava3 = new ImageButton(avaTextureRegionDrawable03);
 
+        ava1.addListener(new EventListener() {
+            @Override
+            public boolean handle(Event event) {
+                ava1.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(AppPreferences.birds[0]))));
+                ava2.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(AppPreferences.birds[4]))));
+                ava3.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(AppPreferences.birds[5]))));
+                AppPreferences.setPrefBirdAvatar(0);
+                AppPreferences.setPrefBirdAnimation(0);
+                return false;
+            }
+        });
+
+        ava2.addListener(new EventListener() {
+            @Override
+            public boolean handle(Event event) {
+                ava1.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(AppPreferences.birds[3]))));
+                ava2.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(AppPreferences.birds[1]))));
+                ava3.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(AppPreferences.birds[5]))));
+                AppPreferences.setPrefBirdAvatar(1);
+                AppPreferences.setPrefBirdAnimation(1);
+                return false;
+            }
+        });
+
+        ava3.addListener(new EventListener() {
+            @Override
+            public boolean handle(Event event) {
+                ava1.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(AppPreferences.birds[3]))));
+                ava2.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(AppPreferences.birds[4]))));
+                ava3.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(AppPreferences.birds[2]))));
+                AppPreferences.setPrefBirdAvatar(2);
+                AppPreferences.setPrefBirdAnimation(2);
+                return false;
+            }
+        });
 
         // CHANGE BACKGROUND SLIDER
         final Slider backgroundSelectorSlider = new Slider(0f, 2f, 1f, false, skin);
