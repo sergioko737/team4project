@@ -19,7 +19,7 @@ import com.jbcteam4.androidgame.FlappyStarter;
  */
 
 /**
- * Credit screend
+ * Credit screen
  */
 
 
