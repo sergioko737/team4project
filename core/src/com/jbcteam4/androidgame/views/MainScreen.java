@@ -31,19 +31,13 @@ public class MainScreen implements Screen {
     private Music music;
     private Stage stage;
 
-   // private MainScreen parent;
+
 
 
     public MainScreen(FlappyStarter flappyStarter) {
         parent = flappyStarter;
-
-
         batch = new SpriteBatch();
         gsm = new GameStateManager();
-        music = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
-        music.setLooping(true);
-        music.setVolume(0.1f);
-        music.play();
         Gdx.gl.glClearColor(1, 0, 0, 1);
         gsm.push(new MenuState(gsm));
     }
@@ -52,7 +46,6 @@ public class MainScreen implements Screen {
     public void show() {
         Gdx.input.setInputProcessor(stage);
         Gdx.input.setCatchBackKey(true);
-
     }
 
     @Override
@@ -62,8 +55,7 @@ public class MainScreen implements Screen {
         gsm.update(Gdx.graphics.getDeltaTime());
         gsm.render(batch);
 
-
-        if (Gdx.input.isKeyPressed(Input.Keys.BACK)){
+      if (Gdx.input.isKeyPressed(Input.Keys.BACK)){
             System.out.println("Back button pressed");
             parent.changeScreen(FlappyStarter.MENU);
             PlayState.score = 0;
@@ -74,30 +66,23 @@ public class MainScreen implements Screen {
     }
 
 
-
     @Override
     public void resize(int width, int height) {
-
     }
 
     @Override
     public void pause() {
-
     }
 
     @Override
     public void resume() {
-
     }
 
     @Override
     public void hide() {
-
     }
 
     @Override
     public void dispose() {
-
-
     }
 }

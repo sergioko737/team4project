@@ -22,7 +22,6 @@ import com.jbcteam4.androidgame.FlappyStarter;
  * Credit screen
  */
 
-
 public class CreditScreen implements Screen {
 
     private FlappyStarter parent;
@@ -72,7 +71,7 @@ public class CreditScreen implements Screen {
         edgarLabel = new Label("Edgar", skin);
         andrisLabel = new Label("Andris", skin);
         okLabel = new Label("Ok", skin);
-
+        texture = new Texture("bg.png");
 
 
         okLabel.addListener(new ClickListener() {
@@ -93,7 +92,7 @@ public class CreditScreen implements Screen {
         table.add(okLabel).center();
 
     }
-//
+
     @Override
     public void render(float delta) {
         // clear the screen ready for next set of images to be drawn
@@ -102,6 +101,7 @@ public class CreditScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.getBatch().begin();
 
+      
         stage.getBatch().end();
 
         if (Gdx.input.isKeyPressed(Input.Keys.BACK)) {

@@ -3,9 +3,7 @@ package com.jbcteam4.androidgame.states;
 
 
         import com.badlogic.gdx.Gdx;
-        import com.badlogic.gdx.Input;
         import com.badlogic.gdx.graphics.Texture;
-        import com.badlogic.gdx.graphics.g2d.Batch;
         import com.badlogic.gdx.graphics.g2d.SpriteBatch;
         import com.badlogic.gdx.graphics.g2d.BitmapFont;    // adding Fonts
         import com.badlogic.gdx.graphics.Color;             // adding Colors
@@ -14,6 +12,7 @@ package com.jbcteam4.androidgame.states;
         import com.jbcteam4.androidgame.FlappyStarter;
         import com.jbcteam4.androidgame.sprites.Bird;
         import com.jbcteam4.androidgame.AppPreferences;
+        import com.jbcteam4.androidgame.GifDecoder;
         import com.jbcteam4.androidgame.sprites.Tube;
 
 
@@ -28,7 +27,6 @@ public class PlayState extends State {
     private Texture live;
     private Texture ground;
     private Vector2 groundPos1, groundPos2;
-    private FlappyStarter parent;
     private static BitmapFont font;
     private static BitmapFont font1;
     private static BitmapFont font2;
@@ -47,7 +45,6 @@ public class PlayState extends State {
     public PlayState(GameStateManager gsm) {
 
         super(gsm);
-
         bird = new Bird(50, 300);
         camera.setToOrtho(false, FlappyStarter.WIDTH / 2, FlappyStarter.HEIGHT / 2);
         bg = new Texture(AppPreferences.getPrefBackground());
@@ -55,7 +52,7 @@ public class PlayState extends State {
         font = new BitmapFont();
         font1 = new BitmapFont();
         font2 = new BitmapFont();
-        live = new Texture("live.png");
+        live = new Texture(AppPreferences.getPrefBirdAvatar());
 
         groundPos1 = new Vector2(camera.position.x - camera.viewportWidth / 2, GROUND_Y_OFFSET);
         groundPos2 = new Vector2((camera.position.x - camera.viewportWidth / 2) + ground.getWidth(), GROUND_Y_OFFSET);
@@ -118,9 +115,9 @@ public class PlayState extends State {
 //        score = score + liveScore;
         camera.update();
 
-        if (liveScore > 40){
+        if (liveScore > 23){
             Tube.setTubeGap(75);
-        } else if (liveScore > 20){
+        } else if (liveScore > 8){
             Tube.setTubeGap(95);
         }
 
@@ -154,6 +151,12 @@ public class PlayState extends State {
         font.draw(sb, String.valueOf(score + liveScore), camera.position.x - (camera.viewportWidth / 2) + 10, 43); // score output
 //        font.draw(sb, String.valueOf(lives), camera.position.x - (camera.viewportWidth / 2) + 40, 43); // test lives output
         font1.draw(sb, "HiScore: " + String.valueOf(hiScore), camera.position.x - (camera.viewportWidth / 2) + 75, 43); // jumps output
+
+        if (liveScore == 25){
+            font2.draw(sb, "Level Up!", camera.position.x - (camera.viewportWidth / 2) + 40, camera.viewportHeight - 50);
+        } else if (liveScore == 10){
+            font2.draw(sb, "Level Up!", camera.position.x - (camera.viewportWidth / 2) + 40, camera.viewportHeight - 50);
+        }
 
         if (lives == 3) {
             sb.draw(live, camera.position.x - (camera.viewportWidth / 2) +5, camera.viewportHeight - 35);

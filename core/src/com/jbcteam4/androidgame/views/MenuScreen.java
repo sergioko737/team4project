@@ -26,7 +26,7 @@ public class MenuScreen implements Screen {
     private Stage stage;
     private Skin skin;
     private SpriteBatch batch;
-    private Texture texture;
+    public static Texture texture;
     private TextButton newGame;
     private TextButton preferences;
     private TextButton exit;

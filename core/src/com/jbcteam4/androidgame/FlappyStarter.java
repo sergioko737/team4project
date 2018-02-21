@@ -73,6 +73,7 @@ public class FlappyStarter extends Game {
         } else {
             playingSong.setVolume(0);
         }
+        playingSong.setLooping(true);
         playingSong.play();
 
     }
