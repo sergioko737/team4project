@@ -22,6 +22,8 @@ import com.jbcteam4.androidgame.FlappyStarter;
  * Credit screen
  */
 
+//some random peace of comment
+
 public class CreditScreen implements Screen {
 
     private FlappyStarter parent;
