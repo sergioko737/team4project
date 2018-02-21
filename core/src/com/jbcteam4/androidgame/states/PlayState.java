@@ -52,7 +52,7 @@ public class PlayState extends State {
         font = new BitmapFont();
         font1 = new BitmapFont();
         font2 = new BitmapFont();
-        live = new Texture("live.png");
+        live = new Texture(AppPreferences.getPrefBirdAvatar());
 
         groundPos1 = new Vector2(camera.position.x - camera.viewportWidth / 2, GROUND_Y_OFFSET);
         groundPos2 = new Vector2((camera.position.x - camera.viewportWidth / 2) + ground.getWidth(), GROUND_Y_OFFSET);

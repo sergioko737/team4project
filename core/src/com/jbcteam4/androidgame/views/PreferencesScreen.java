@@ -5,12 +5,14 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -22,20 +24,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.jbcteam4.androidgame.AppPreferences;
 import com.jbcteam4.androidgame.FlappyStarter;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class PreferencesScreen implements Screen {
 
     private FlappyStarter parent;
     private Stage stage;
-    private Label titleLabel;
-    private Label volumeMusicLabel;
-    private Label volumeSoundLabel;
-    private Label musicOnOffLabel;
-    private Label soundOnOffLabel;
-    private Label backgroundSelectorLabel;
-    private Texture texture;
-    private Drawable backgroundSelectorPreview;
-    Skin skin;
+    public Texture texture;
+    private Skin skin;
 
     public PreferencesScreen(FlappyStarter flappyStarter) {
         parent = flappyStarter;
@@ -47,9 +43,7 @@ public class PreferencesScreen implements Screen {
     @Override
     public void show() {
         stage.clear();
-       // preferences = new AppPreferences();
         Gdx.input.setInputProcessor(stage);
-
         Gdx.input.setCatchBackKey(true);
 
 
@@ -66,27 +60,61 @@ public class PreferencesScreen implements Screen {
         // table.setDebug(true);
         stage.addActor(table);
 
-
         // temporary until we have asset manager in
         Skin skin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
 
+        // CHANGE AVATAR BUTTONS
+        Texture avaTexture01 = new Texture(Gdx.files.internal("birdDefault.png"));
+        TextureRegion avaTextureRegion01 = new TextureRegion(avaTexture01);
+        TextureRegionDrawable avaTextureRegionDrawable = new TextureRegionDrawable(avaTextureRegion01);
 
-        // CHANGE BACKGROUND SLIDER
-        final Slider backgroundSelectorSlider = new Slider(0f, 2f, 1f, false, skin);
-        backgroundSelectorSlider.setValue(0);
+        final ImageButton ava1 = new ImageButton(avaTextureRegionDrawable);
 
-        backgroundSelectorSlider.addListener(new EventListener() {
+        ava1.addListener(new EventListener() {
             @Override
             public boolean handle(Event event) {
-                //AppPreferences.setSoundFXVolume(soundFXSlider.getValue());
+                ava1.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(AppPreferences.getPrefBirdAvatar()))));
+                //ava2.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(AppPreferences.getPrefBirdAvatar()))));
+                //ava3.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(AppPreferences.getPrefBirdAvatar()))));
+
                 return false;
             }
         });
 
-        final Image image = new Image(texture);
+        Texture avaTexture02 = new Texture(Gdx.files.internal("birdAccenture.png"));
+        TextureRegion avaTextureRegion02 = new TextureRegion(avaTexture02);
+        TextureRegionDrawable avaTextureRegionDrawable02 = new TextureRegionDrawable(avaTextureRegion02);
 
-        // MUSIC SETTINGS
-        // music volume
+        final ImageButton ava2 = new ImageButton(avaTextureRegionDrawable02);
+
+        Texture avaTexture03 = new Texture(Gdx.files.internal("birdDefault.png"));
+        TextureRegion avaTextureRegion03 = new TextureRegion(avaTexture03);
+        TextureRegionDrawable avaTextureRegionDrawable03 = new TextureRegionDrawable(avaTextureRegion03);
+
+        final ImageButton ava3 = new ImageButton(avaTextureRegionDrawable03);
+
+
+        // CHANGE BACKGROUND SLIDER
+        final Slider backgroundSelectorSlider = new Slider(0f, 2f, 1f, false, skin);
+        backgroundSelectorSlider.setValue(AppPreferences.getPrefBackgroundSelector());
+
+        backgroundSelectorSlider.addListener(new EventListener() {
+            @Override
+            public boolean handle(Event event) {
+                AppPreferences.setPrefBackground((int) backgroundSelectorSlider.getValue());
+                AppPreferences.setPrefToptube((int) backgroundSelectorSlider.getValue());
+                AppPreferences.setPrefBottomtube((int) backgroundSelectorSlider.getValue());
+                AppPreferences.setPrefBackgroundSelector(backgroundSelectorSlider.getValue());
+                MenuScreen.texture.dispose();
+                MenuScreen.texture = new Texture(AppPreferences.getPrefBackground());
+                texture.dispose();
+                texture = new Texture(AppPreferences.getPrefBackground());
+                return false;
+            }
+        });
+
+
+        // MUSIC VOLUME SLIDER
         final Slider volumeMusicSlider = new Slider(0f, 1f, 0.1f, false, skin);
         volumeMusicSlider.setValue(AppPreferences.getMusicVolume());
 
@@ -101,7 +129,6 @@ public class PreferencesScreen implements Screen {
                 return false;
             }
         });
-
 
         // music on/off
         final CheckBox musicCheckbox = new CheckBox(null, skin);
@@ -128,9 +155,6 @@ public class PreferencesScreen implements Screen {
             @Override
             public boolean handle(Event event) {
                 AppPreferences.setSoundFXVolume(soundFXSlider.getValue());
-                if (AppPreferences.isMusicEnabled()) {
-                    parent.playingSong.setVolume(soundFXSlider.getValue());
-                }
                 return false;
             }
         });
@@ -160,34 +184,41 @@ public class PreferencesScreen implements Screen {
             }
         });
 
-        backgroundSelectorLabel = new Label("Select playground", skin);
-        titleLabel = new Label("Preferences", skin);
+        Label titleLabel = new Label("Preferences", skin);
         titleLabel.setFontScale(1.5f);
-        volumeMusicLabel = new Label("Music Volume", skin);
-        volumeSoundLabel = new Label("Sound Volume", skin);
-        musicOnOffLabel = new Label("ON/OFF", skin);
-        soundOnOffLabel = new Label("ON/OFF", skin);
+        Label changeAvatarLabel = new Label("Select avatar", skin);
+        Label backgroundSelectorLabel = new Label("Select playground", skin);
+        Label volumeMusicLabel = new Label("Music Volume", skin);
+        Label volumeSoundLabel = new Label("Sound Volume", skin);
+        Label musicOnOffLabel = new Label("ON/OFF", skin);
+        Label soundOnOffLabel = new Label("ON/OFF", skin);
 
-        table.add(titleLabel).colspan(2);
-        table.row().pad(20, 0, 0, 10);
-        table.add(backgroundSelectorLabel).right();
-        table.row().pad(10, 0, 0, 10);
-        table.add(backgroundSelectorSlider);
-        table.row().pad(10, 0, 0, 10);
-        table.add(volumeMusicLabel).center();
+        //table.debug();
+        table.add(titleLabel).colspan(3).center();
+        table.row().pad(20, 0, 0, 0);
+        table.add(changeAvatarLabel).colspan(3).center();
+        table.row().pad(20, 0, 0, 0);
+        table.add(ava1).center().colspan(1);
+        table.add(ava2).center().colspan(1);
+        table.add(ava3).center().colspan(1);
+        table.row().pad(20, 0, 0, 0);
+        table.add(backgroundSelectorLabel).center().colspan(3);
+        table.row().pad(10, 0, 0, 0);
+        table.add(backgroundSelectorSlider).colspan(3).center();
+        table.row().pad(10, 0, 0, 0);
+        table.add(volumeMusicLabel).center().colspan(2);
         table.add(musicOnOffLabel).center();
-        table.row().pad(5, 0, 0, 10);
-        table.add(volumeMusicSlider);
+        table.row().pad(5, 10, 0, 10);
+        table.add(volumeMusicSlider).colspan(2);
         table.add(musicCheckbox);
-        table.row().pad(10, 0, 0, 10);
-        table.add(volumeSoundLabel).center();
+        table.row().pad(10, 10, 0, 10);
+        table.add(volumeSoundLabel).center().colspan(2);
         table.add(soundOnOffLabel).center();
-        table.row().pad(5, 0, 0, 10);
-        table.add(soundFXSlider);
+        table.row().pad(5, 10, 0, 10);
+        table.add(soundFXSlider).colspan(2);
         table.add(soundFXCheckbox);
-        table.row().pad(10, 0, 0, 10);
-
-        table.add(backButton).colspan(2);
+        table.row().pad(10, 10, 0, 10);
+        table.add(backButton).colspan(3);
 
     }
 
@@ -206,13 +237,12 @@ public class PreferencesScreen implements Screen {
 
             parent.changeScreen(FlappyStarter.MENU);
 
-
         }
 
         // tell our stage to do actions and draw itself
         stage.draw();
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
-        
+
 
     }
 

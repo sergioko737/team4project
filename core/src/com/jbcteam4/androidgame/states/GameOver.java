@@ -11,6 +11,8 @@ package com.jbcteam4.androidgame.states;
         import com.badlogic.gdx.graphics.g2d.TextureRegion;
         import com.jbcteam4.androidgame.AppPreferences;
         import com.jbcteam4.androidgame.FlappyStarter;
+        import com.jbcteam4.androidgame.states.PlayState;
+        import com.jbcteam4.androidgame.sprites.Tube;
         import com.jbcteam4.androidgame.GifDecoder;
         import com.jbcteam4.androidgame.sprites.Tube;
 
@@ -26,8 +28,7 @@ public class GameOver extends State {
     public GameOver(GameStateManager gsm) {
         super(gsm);
         camera.setToOrtho(false, FlappyStarter.WIDTH / 2, FlappyStarter.HEIGHT / 2);
-        background = new Texture("bg-go.png");
-//        background = new Texture(AppPreferences.getPrefBackground());
+        background = new Texture(AppPreferences.getPrefBackground());
         gameover = new Texture("gameover.png");
         animation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP_PINGPONG, Gdx.files.internal("ohhnoo-04.gif").read());
         font = new BitmapFont();
@@ -41,7 +42,6 @@ public class GameOver extends State {
         if(Gdx.input.justTouched()){
             PlayState.score = 0;
             Tube.setTubeGap(120);
-            gsm.set(new PlayState(gsm));
             gsm.set(new PlayState(gsm));
         }
 

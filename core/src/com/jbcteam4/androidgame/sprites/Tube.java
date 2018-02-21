@@ -13,7 +13,7 @@ public class Tube {
     public static final int TUBE_WIDTH = 48;
 
     private static final int FLUCTUATION = 130;
-    private static int TubeGap = 120;     // 120 standart - 70 difficult
+    private static  int TubeGap = 120;
     private static final int LOWEST_OPENING = 120;
 
     private Texture topTube, bottomTube;
