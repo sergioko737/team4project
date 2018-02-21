@@ -13,7 +13,7 @@ public class Tube {
     public static final int TUBE_WIDTH = 48;
 
     private static final int FLUCTUATION = 130;
-    private static final int TUBE_GAP = 120;
+    private static int TubeGap = 120;     // 120 standart - 70 difficult
     private static final int LOWEST_OPENING = 120;
 
     private Texture topTube, bottomTube;
@@ -21,6 +21,9 @@ public class Tube {
     private Random rand;
     private Rectangle boundsTop, boundsBot;
 
+    public static void setTubeGap (int aGap) {
+        TubeGap = aGap;
+    }
 
     public Texture getTopTube() {
         return topTube;
@@ -43,8 +46,8 @@ public class Tube {
         bottomTube = new Texture(AppPreferences.getPrefBottomtube());
         rand = new Random();
 
-        posTopTube = new Vector2(x, rand.nextInt(FLUCTUATION) + TUBE_GAP + LOWEST_OPENING);
-        posBotTube = new Vector2(x, posTopTube.y - TUBE_GAP - bottomTube.getHeight());
+        posTopTube = new Vector2(x, rand.nextInt(FLUCTUATION) + TubeGap + LOWEST_OPENING);
+        posBotTube = new Vector2(x, posTopTube.y - TubeGap - bottomTube.getHeight());
 
         boundsTop = new Rectangle(posTopTube.x, posTopTube.y, topTube.getWidth(), topTube.getHeight());
         boundsBot = new Rectangle(posBotTube.x, posBotTube.y, bottomTube.getWidth(), bottomTube.getHeight());
@@ -52,8 +55,8 @@ public class Tube {
     }
 
     public void reposition(float x) {
-        posTopTube.set(x, rand.nextInt(FLUCTUATION) + TUBE_GAP + LOWEST_OPENING);
-        posBotTube.set(x, posTopTube.y - TUBE_GAP - bottomTube.getHeight());
+        posTopTube.set(x, rand.nextInt(FLUCTUATION) + TubeGap + LOWEST_OPENING);
+        posBotTube.set(x, posTopTube.y - TubeGap - bottomTube.getHeight());
         boundsTop.setPosition(posTopTube.x, posTopTube.y);
         boundsBot.setPosition(posBotTube.x, posBotTube.y);
     }

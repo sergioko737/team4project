@@ -64,7 +64,7 @@ public class MenuScreen implements Screen {
 
         // Create a table that fills the screen. Everything else will go inside this table.
         Table table = new Table();
-       table.setOrigin(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+        table.setOrigin(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
 
 
         table.setFillParent(true);
@@ -175,7 +175,6 @@ public class MenuScreen implements Screen {
         backGround.dispose();
         skin.dispose();
         parent.dispose();
-
 
     }
 

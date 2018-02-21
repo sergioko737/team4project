@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -17,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.jbcteam4.androidgame.AppPreferences;
 import com.jbcteam4.androidgame.FlappyStarter;
@@ -32,6 +34,7 @@ public class PreferencesScreen implements Screen {
     private Label soundOnOffLabel;
     private Label backgroundSelectorLabel;
     private Texture texture;
+    private Drawable backgroundSelectorPreview;
     Skin skin;
 
     public PreferencesScreen(FlappyStarter flappyStarter) {
@@ -56,7 +59,7 @@ public class PreferencesScreen implements Screen {
         table.setFillParent(true);
         if (Gdx.graphics.getWidth() > 800) {
             table.setTransform(true);
-            table.scaleBy(3.3f);
+            table.scaleBy(3.0f);
         }
         table.setOrigin(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
 
@@ -67,17 +70,20 @@ public class PreferencesScreen implements Screen {
         // temporary until we have asset manager in
         Skin skin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
 
-        SelectBox.SelectBoxStyle style = new SelectBox.SelectBoxStyle();
 
-        // music volume
+        // CHANGE BACKGROUND SLIDER
+        final Slider backgroundSelectorSlider = new Slider(0f, 2f, 1f, false, skin);
+        backgroundSelectorSlider.setValue(0);
 
+        backgroundSelectorSlider.addListener(new EventListener() {
+            @Override
+            public boolean handle(Event event) {
+                //AppPreferences.setSoundFXVolume(soundFXSlider.getValue());
+                return false;
+            }
+        });
 
-        final SelectBox<String> backgroundSelector = new SelectBox(skin);
-        backgroundSelector.setItems(AppPreferences.background);
-
-        //backgroundSelector.setStyle(style);
-
-        backgroundSelector.getItems();
+        final Image image = new Image(texture);
 
         // MUSIC SETTINGS
         // music volume
@@ -159,31 +165,28 @@ public class PreferencesScreen implements Screen {
         titleLabel.setFontScale(1.5f);
         volumeMusicLabel = new Label("Music Volume", skin);
         volumeSoundLabel = new Label("Sound Volume", skin);
-        musicOnOffLabel = new Label("Music ON/OFF", skin);
-        soundOnOffLabel = new Label("Sound Effect ON/OFF", skin);
+        musicOnOffLabel = new Label("ON/OFF", skin);
+        soundOnOffLabel = new Label("ON/OFF", skin);
 
         table.add(titleLabel).colspan(2);
         table.row().pad(20, 0, 0, 10);
-        table.add(backgroundSelectorLabel).center();
-        table.row().pad(5, 0, 0, 10);
-        table.add(backgroundSelector);
+        table.add(backgroundSelectorLabel).right();
+        table.row().pad(10, 0, 0, 10);
+        table.add(backgroundSelectorSlider);
         table.row().pad(10, 0, 0, 10);
         table.add(volumeMusicLabel).center();
-        table.row().pad(5, 0, 0, 10);
-        table.add(volumeMusicSlider);
-        table.row().pad(10, 0, 0, 10);
         table.add(musicOnOffLabel).center();
         table.row().pad(5, 0, 0, 10);
+        table.add(volumeMusicSlider);
         table.add(musicCheckbox);
         table.row().pad(10, 0, 0, 10);
         table.add(volumeSoundLabel).center();
-        table.row().pad(5, 0, 0, 10);
-        table.add(soundFXSlider);
-        table.row().pad(10, 0, 0, 10);
         table.add(soundOnOffLabel).center();
         table.row().pad(5, 0, 0, 10);
+        table.add(soundFXSlider);
         table.add(soundFXCheckbox);
-        table.row().pad(30, 0, 0, 10);
+        table.row().pad(10, 0, 0, 10);
+
         table.add(backButton).colspan(2);
 
     }
