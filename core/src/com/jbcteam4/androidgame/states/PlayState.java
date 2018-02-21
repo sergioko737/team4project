@@ -25,12 +25,13 @@ public class PlayState extends State {
 
     private Bird bird;
     private Texture bg;
+    private Texture live;
     private Texture ground;
     private Vector2 groundPos1, groundPos2;
     private FlappyStarter parent;
-    private BitmapFont font;
-    private BitmapFont font1;
-
+    private static BitmapFont font;
+    private static BitmapFont font1;
+    private static BitmapFont font2;
 
     private Array<Tube> tubes;
 
@@ -38,8 +39,12 @@ public class PlayState extends State {
 //    int oldScore = prefs.getInt("highScore", 0);
 
     public int frames = 0;      // adding frames
-    public static int score = 0;       // adding score field
+    public static int score = 0;    // adding score field
+    private static int liveScore = 0;
     public static int hiScore = AppPreferences.getPrefHiScore();    // adding hiscore
+    public static int lives = 3;
+
+   
 
     public PlayState(GameStateManager gsm) {
 
@@ -48,8 +53,12 @@ public class PlayState extends State {
         super(gsm);
         bird = new Bird(50, 300);
         camera.setToOrtho(false, FlappyStarter.WIDTH / 2, FlappyStarter.HEIGHT / 2);
-        bg = new Texture("bg-01.png");
+        bg = new Texture(AppPreferences.getPrefBackground());
         ground = new Texture("ground.png");
+        font = new BitmapFont();
+        font1 = new BitmapFont();
+        font2 = new BitmapFont();
+        live = new Texture("live.png");
 
         groundPos1 = new Vector2(camera.position.x - camera.viewportWidth / 2, GROUND_Y_OFFSET);
         groundPos2 = new Vector2((camera.position.x - camera.viewportWidth / 2) + ground.getWidth(), GROUND_Y_OFFSET);
@@ -72,9 +81,9 @@ public class PlayState extends State {
 
     }
 
-    public void counter() {
-        score = frames / 63;
-    }
+//    public void counter() {
+//        score = frames / 63;
+//    }
 
     @Override
     protected void handleInput() {
@@ -100,11 +109,20 @@ public class PlayState extends State {
             }
 
             if (tube.collides(bird.getBounds())) {
-                gsm.set(new GameOver(gsm));
+                --lives;
+                if (lives > 0){
+                    score = score + liveScore;
+                    gsm.set(new StillAlive(gsm));
+                } else {
+                    score = score + liveScore;
+                    gsm.set(new GameOver(gsm));
+                }
+
             }
         }
         frames++;
-        score = frames / 73;
+        liveScore = frames / 73;
+//        score = score + liveScore;
         camera.update();
 
     }
@@ -116,6 +134,8 @@ public class PlayState extends State {
         font.setColor(Color.BLACK);         // font
         font.getData().setScale(2);         // font
 
+        font2.setColor(Color.WHITE);         // font
+        font2.getData().setScale(2);         // font
 
         font1.setColor(Color.GRAY);         // font
         font1.getData().setScale(2);         // font
@@ -132,12 +152,22 @@ public class PlayState extends State {
         sb.draw(ground, groundPos1.x, groundPos1.y);
         sb.draw(ground, groundPos2.x, groundPos2.y);
 
-        font.draw(sb, String.valueOf(score), camera.position.x - (camera.viewportWidth / 2) + 10, 43); // score output
-//        font.draw(sb, String.valueOf(hiScore), camera.position.x - (camera.viewportWidth / 2) + 40, 43); // test score output
+        font.draw(sb, String.valueOf(score + liveScore), camera.position.x - (camera.viewportWidth / 2) + 10, 43); // score output
+//        font.draw(sb, String.valueOf(lives), camera.position.x - (camera.viewportWidth / 2) + 40, 43); // test lives output
         font1.draw(sb, "HiScore: " + String.valueOf(hiScore), camera.position.x - (camera.viewportWidth / 2) + 75, 43); // jumps output
+
+        if (lives == 3) {
+            sb.draw(live, camera.position.x - (camera.viewportWidth / 2) +5, camera.viewportHeight - 35);
+            sb.draw(live, camera.position.x - (camera.viewportWidth / 2) +35, camera.viewportHeight - 35);
+            sb.draw(live, camera.position.x - (camera.viewportWidth / 2) +65, camera.viewportHeight - 35);
+        } else if (lives == 2) {
+            sb.draw(live, camera.position.x - (camera.viewportWidth / 2) +5, camera.viewportHeight - 35);
+            sb.draw(live, camera.position.x - (camera.viewportWidth / 2) +35, camera.viewportHeight - 35);
+        } else if (lives == 1) {
+            sb.draw(live, camera.position.x - (camera.viewportWidth / 2) +5, camera.viewportHeight - 35);
+        }
+
         sb.end();
-
-
 
     }
 

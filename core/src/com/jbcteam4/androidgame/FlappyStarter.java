@@ -68,11 +68,9 @@ public class FlappyStarter extends Game {
         assMan.manager.finishLoading();
         // loads the 2 sounds we use
         playingSong = assMan.manager.get("music.mp3");
-        if(preferences.isMusicEnabled()) {
-            System.out.println("TOBEREMOVED startup if condition music config engaged" + preferences.isMusicEnabled());
-            playingSong.setVolume(preferences.getMusicVolume());
-        } else{
-            System.out.println("TOBEREMOVED startup else condition music config engaged" + preferences.isMusicEnabled());
+        if (AppPreferences.isMusicEnabled()) {
+            playingSong.setVolume(AppPreferences.getMusicVolume());
+        } else {
             playingSong.setVolume(0);
         }
         playingSong.play();

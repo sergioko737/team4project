@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -29,7 +30,7 @@ public class PreferencesScreen implements Screen {
     private Label volumeSoundLabel;
     private Label musicOnOffLabel;
     private Label soundOnOffLabel;
-    private AppPreferences preferences;
+    private Label backgroundSelectorLabel;
     private Texture texture;
     Skin skin;
 
@@ -37,19 +38,13 @@ public class PreferencesScreen implements Screen {
         parent = flappyStarter;
         /// create stage and set it as input processor
         stage = new Stage(new ScreenViewport());
-        texture = new Texture("bg.png");
-        // temporary until we have asset manager in
-        skin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
-    }
-
-    public AppPreferences getPreferences() {
-        return this.preferences;
+        texture = new Texture(AppPreferences.getPrefBackground());
     }
 
     @Override
     public void show() {
         stage.clear();
-        preferences = new AppPreferences();
+       // preferences = new AppPreferences();
         Gdx.input.setInputProcessor(stage);
 
         Gdx.input.setCatchBackKey(true);
@@ -59,10 +54,9 @@ public class PreferencesScreen implements Screen {
         // this table.
         Table table = new Table();
         table.setFillParent(true);
-        if(Gdx.graphics.getWidth() >800)
-        {
-         table.setTransform(true);
-         table.scaleBy(3.3f);
+        if (Gdx.graphics.getWidth() > 800) {
+            table.setTransform(true);
+            table.scaleBy(3.3f);
         }
         table.setOrigin(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
 
@@ -70,73 +64,82 @@ public class PreferencesScreen implements Screen {
         stage.addActor(table);
 
 
+        // temporary until we have asset manager in
+        Skin skin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
 
+        SelectBox.SelectBoxStyle style = new SelectBox.SelectBoxStyle();
 
         // music volume
+
+
+        final SelectBox<String> backgroundSelector = new SelectBox(skin);
+        backgroundSelector.setItems(AppPreferences.background);
+
+        //backgroundSelector.setStyle(style);
+
+        backgroundSelector.getItems();
+
+        // MUSIC SETTINGS
+        // music volume
         final Slider volumeMusicSlider = new Slider(0f, 1f, 0.1f, false, skin);
-
-        volumeMusicSlider.setValue(preferences.getMusicVolume());
-
+        volumeMusicSlider.setValue(AppPreferences.getMusicVolume());
 
         volumeMusicSlider.addListener(new EventListener() {
             @Override
             public boolean handle(Event event) {
-                preferences.getPrefs().putFloat("volume",volumeMusicSlider.getValue()).flush();
-                if (preferences.isMusicEnabled()) {
+                AppPreferences.setMusicVolume(volumeMusicSlider.getValue());
+                if (AppPreferences.isMusicEnabled()) {
                     parent.playingSong.setVolume(volumeMusicSlider.getValue());
                 }
 
-                System.out.println("TOBEREMOVED sound music slider engaged " + preferences.getMusicVolume());
                 return false;
             }
         });
 
-        // sound volume
-        final Slider soundMusicSlider = new Slider(0f, 1f, 0.1f, false, skin);
-
-        soundMusicSlider.setValue(preferences.getSoundVolume());
-
-        soundMusicSlider.addListener(new EventListener() {
-            @Override
-            public boolean handle(Event event) {
-
-                preferences.getPrefs().putFloat("sound", soundMusicSlider.getValue()).flush();
-                System.out.println("TOBEREMOVED sound fx slider engaged " + soundMusicSlider.getValue());
-                return false;
-            }
-        });
 
         // music on/off
         final CheckBox musicCheckbox = new CheckBox(null, skin);
-        musicCheckbox.setChecked(preferences.isMusicEnabled());
+        musicCheckbox.setChecked(AppPreferences.isMusicEnabled());
         musicCheckbox.addListener(new EventListener() {
             @Override
             public boolean handle(Event event) {
-                preferences.getPrefs().putBoolean("music.enabled", musicCheckbox.isChecked()).flush();
-                if (!musicCheckbox.isChecked()){
+                AppPreferences.setMusicEnabled(musicCheckbox.isChecked());
+                if (!musicCheckbox.isChecked()) {
                     parent.playingSong.setVolume(0);
                 } else {
                     parent.playingSong.setVolume(volumeMusicSlider.getValue());
                 }
-               /* boolean enabled = musicCheckbox.isChecked();
-                parent.onOffMusic(enabled);*/
+                return false;
+            }
+        });
 
-                System.out.println("TOBEREMOVED music checkbox checked " + musicCheckbox.isChecked());
+        // Sound FX SETTINGS
+        // sound FX volume
+        final Slider soundFXSlider = new Slider(0f, 1f, 0.1f, false, skin);
+        soundFXSlider.setValue(AppPreferences.getSoundFXVolume());
+
+        soundFXSlider.addListener(new EventListener() {
+            @Override
+            public boolean handle(Event event) {
+                AppPreferences.setSoundFXVolume(soundFXSlider.getValue());
+                if (AppPreferences.isMusicEnabled()) {
+                    parent.playingSong.setVolume(soundFXSlider.getValue());
+                }
                 return false;
             }
         });
 
         // sound on/off
-        final CheckBox soundEffectsCheckbox = new CheckBox(null, skin);
-        soundEffectsCheckbox.setChecked(parent.getPreferences().isSoundEffectsEnabled());
-        soundEffectsCheckbox.addListener(new EventListener() {
+        final CheckBox soundFXCheckbox = new CheckBox(null, skin);
+        soundFXCheckbox.setChecked(AppPreferences.isSoundFXEnabled());
+        soundFXCheckbox.addListener(new EventListener() {
             @Override
             public boolean handle(Event event) {
-                boolean enabled = soundEffectsCheckbox.isChecked();
-                parent.getPreferences().setSoundEffectsEnabled(enabled);
-                System.out.println("TOBEREMOVED sound checkbox checked " + enabled);
-                System.out.println("TOBEREMOVED get music volume " + parent.getPreferences().getMusicVolume());
-                System.out.println("TOBEREMOVED get music volume " + preferences.getMusicVolume());
+
+                AppPreferences.setSoundFXEnabled(soundFXCheckbox.isChecked());
+
+                AppPreferences.setSoundFXVolume(soundFXSlider.getValue());
+
                 return false;
             }
         });
@@ -147,11 +150,11 @@ public class PreferencesScreen implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 parent.changeScreen(FlappyStarter.MENU);
-                System.out.println("TOBEREMOVED Back button pressed");
 
             }
         });
 
+        backgroundSelectorLabel = new Label("Select playground", skin);
         titleLabel = new Label("Preferences", skin);
         titleLabel.setFontScale(1.5f);
         volumeMusicLabel = new Label("Music Volume", skin);
@@ -161,6 +164,10 @@ public class PreferencesScreen implements Screen {
 
         table.add(titleLabel).colspan(2);
         table.row().pad(20, 0, 0, 10);
+        table.add(backgroundSelectorLabel).center();
+        table.row().pad(5, 0, 0, 10);
+        table.add(backgroundSelector);
+        table.row().pad(10, 0, 0, 10);
         table.add(volumeMusicLabel).center();
         table.row().pad(5, 0, 0, 10);
         table.add(volumeMusicSlider);
@@ -171,11 +178,11 @@ public class PreferencesScreen implements Screen {
         table.row().pad(10, 0, 0, 10);
         table.add(volumeSoundLabel).center();
         table.row().pad(5, 0, 0, 10);
-        table.add(soundMusicSlider);
+        table.add(soundFXSlider);
         table.row().pad(10, 0, 0, 10);
         table.add(soundOnOffLabel).center();
         table.row().pad(5, 0, 0, 10);
-        table.add(soundEffectsCheckbox);
+        table.add(soundFXCheckbox);
         table.row().pad(30, 0, 0, 10);
         table.add(backButton).colspan(2);
 
@@ -202,7 +209,7 @@ public class PreferencesScreen implements Screen {
         // tell our stage to do actions and draw itself
         stage.draw();
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
-
+        
 
     }
 

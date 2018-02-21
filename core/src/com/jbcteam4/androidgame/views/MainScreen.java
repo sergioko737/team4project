@@ -20,7 +20,7 @@ public class MainScreen implements Screen {
     public static final int WIDTH = 480;
     public static final int HEIGHT = 800;
 
-    public static final String TITLE = "Flappy Demo";
+    public static final String TITLE = "Flappy Riga";
 
     private GameStateManager gsm;
     private SpriteBatch batch;

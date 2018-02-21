@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.jbcteam4.androidgame.AppPreferences;
 import com.jbcteam4.androidgame.FlappyStarter;
 
 
@@ -38,11 +39,11 @@ public class MenuScreen implements Screen {
         parent = flappyStarter;
         /// create stage and set it as input processor
         stage = new Stage(new ScreenViewport());
-        backGround = new Texture("bg-01.png");
+        backGround = new Texture(AppPreferences.getPrefBackground());
         parent.assMan.queueAddSkin();
         parent.assMan.manager.finishLoading();
         skin = parent.assMan.manager.get("skin/glassy-ui.json");
-        texture = new Texture("bg.png");
+        texture = new Texture(AppPreferences.getPrefBackground());
 
         newGame = new TextButton("New Game", skin);
         preferences = new TextButton(" Preferences ", skin);
@@ -50,6 +51,10 @@ public class MenuScreen implements Screen {
         credits = new Label("Credits",skin);
         credits.setFontScale(2.3f);
         credits.setColor(Color.BLACK);
+
+        TextButton newGame = new TextButton("New Game", skin);
+        TextButton preferences = new TextButton("Preferences", skin);
+        TextButton exit = new TextButton("Exit", skin);
 
     }
 
@@ -59,7 +64,7 @@ public class MenuScreen implements Screen {
 
         // Create a table that fills the screen. Everything else will go inside this table.
         Table table = new Table();
-        table.setOrigin(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+       table.setOrigin(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
 
 
         table.setFillParent(true);
@@ -71,6 +76,9 @@ public class MenuScreen implements Screen {
 
         //table.setDebug(true);
         stage.addActor(table);
+
+
+        //create buttons
 
 
         //add buttons to table
@@ -167,6 +175,7 @@ public class MenuScreen implements Screen {
         backGround.dispose();
         skin.dispose();
         parent.dispose();
+
 
     }
 

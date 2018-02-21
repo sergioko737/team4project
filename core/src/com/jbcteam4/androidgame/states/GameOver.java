@@ -16,20 +16,23 @@ public class GameOver extends State {
 
     private Texture background;
     private Texture gameover;
-    BitmapFont font;
+    private BitmapFont font;
 
     public GameOver(GameStateManager gsm) {
         super(gsm);
         camera.setToOrtho(false, FlappyStarter.WIDTH / 2, FlappyStarter.HEIGHT / 2);
-        background = new Texture("bg-01.png");
+        background = new Texture(AppPreferences.getPrefBackground());
         gameover = new Texture("gameover.png");
         font = new BitmapFont();
+        PlayState.lives = 3;
         PlayState.setNewHiScore();
+
     }
 
     @Override
     public void handleInput() {
         if(Gdx.input.justTouched()){
+            PlayState.score = 0;
             gsm.set(new PlayState(gsm));
         }
 

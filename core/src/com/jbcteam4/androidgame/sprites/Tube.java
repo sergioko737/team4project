@@ -4,6 +4,7 @@ package com.jbcteam4.androidgame.sprites;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.jbcteam4.androidgame.AppPreferences;
 
 import java.util.Random;
 
@@ -38,8 +39,8 @@ public class Tube {
     }
 
     public Tube(float x) {
-        topTube = new Texture("toptube-03.png");
-        bottomTube = new Texture("bottomtube-03.png");
+        topTube = new Texture(AppPreferences.getPrefToptube());
+        bottomTube = new Texture(AppPreferences.getPrefBottomtube());
         rand = new Random();
 
         posTopTube = new Vector2(x, rand.nextInt(FLUCTUATION) + TUBE_GAP + LOWEST_OPENING);
