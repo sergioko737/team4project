@@ -1,11 +1,9 @@
 package com.jbcteam4.androidgame.sprites;
 
-
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.jbcteam4.androidgame.AppPreferences;
-
 import java.util.Random;
 
 /**
@@ -17,11 +15,9 @@ public class Tube {
      * The constants for the playground objects
      */
     public static final int TUBE_WIDTH = 48;
-
     private static final int FLUCTUATION = 130;
     private static int TubeGap = 120;
     private static final int LOWEST_OPENING = 120;
-
     private Texture topTube, bottomTube;
     private Vector2 posTopTube, posBotTube;
     private Random rand;
