@@ -63,7 +63,7 @@ public class GameOver extends State {
         sb.setProjectionMatrix(camera.combined);
         sb.begin();
         sb.draw(background, 0, 0);
-        sb.draw(animation.getKeyFrame(elapsed), -23, 185);  //GIF animation
+        sb.draw(animation.getKeyFrame(elapsed), -7, 185);  //GIF animation
         sb.draw(gameover, camera.position.x - gameover.getWidth() / 2, camera.position.y - 75);
         font.draw(sb, String.valueOf("Your score: "+ PlayState.score), camera.position.x - (camera.viewportWidth / 2) + 33, 95); // score output
         font.draw(sb, String.valueOf("Hiscore: "+ PlayState.hiScore), camera.position.x - (camera.viewportWidth / 2) + 33, 60); // score output
