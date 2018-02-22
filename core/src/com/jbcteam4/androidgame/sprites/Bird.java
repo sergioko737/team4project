@@ -1,12 +1,12 @@
 package com.jbcteam4.androidgame.sprites;
 
-        import com.badlogic.gdx.Gdx;
-        import com.badlogic.gdx.audio.Sound;
-        import com.badlogic.gdx.graphics.Texture;
-        import com.badlogic.gdx.graphics.g2d.TextureRegion;
-        import com.badlogic.gdx.math.Rectangle;
-        import com.badlogic.gdx.math.Vector3;
-        import com.jbcteam4.androidgame.AppPreferences;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector3;
+import com.jbcteam4.androidgame.AppPreferences;
 
 
 /**
@@ -28,14 +28,13 @@ public class Bird {
      * @param x the x
      * @param y the y
      */
-    public Bird(int x, int y){
+    public Bird(int x, int y) {
         position = new Vector3(x, y, 0);
         velosity = new Vector3(0, 0, 0);
         texture = new Texture(AppPreferences.getPrefBirdAnimation());
         birdAnimation = new Animation(new TextureRegion(texture), 3, 0.5f);
-        bounds = new Rectangle(x, y, texture.getWidth() /3, texture.getHeight());
+        bounds = new Rectangle(x, y, texture.getWidth() / 3, texture.getHeight());
         flap = Gdx.audio.newSound(Gdx.files.internal("sfx_wing.ogg"));
-
     }
 
     /**
@@ -61,7 +60,7 @@ public class Bird {
      *
      * @param dt the dt
      */
-    public void update(float dt){
+    public void update(float dt) {
         birdAnimation.update(dt);
         if (position.y > 0)
             velosity.add(0, GRAVITY, 0);
@@ -72,27 +71,24 @@ public class Bird {
 
         velosity.scl(1 / dt);
         bounds.setPosition(position.x, position.y);
-
-
     }
 
     /**
-     * Jump.
+     * Jump sets the character reaction on tap strength
      */
-    public void jump(){
+    public void jump() {
         velosity.y = 220;
         if (AppPreferences.isSoundFXEnabled()) {
             flap.play(AppPreferences.getSoundFXVolume());
         }
-
     }
 
     /**
-     * Get bounds rectangle.
+     * Gets Bird bounds rectangle.
      *
      * @return the rectangle
      */
-    public Rectangle getBounds(){
+    public Rectangle getBounds() {
         return bounds;
     }
 

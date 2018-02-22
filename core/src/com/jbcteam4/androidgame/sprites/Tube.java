@@ -9,17 +9,17 @@ import com.jbcteam4.androidgame.AppPreferences;
 import java.util.Random;
 
 /**
- * The type Tube.
+ * The type Tube. Creates objects for top and bottom tubes and places the on the playground.
  */
 public class Tube {
 
     /**
-     * The constant TUBE_WIDTH.
+     * The constants for the playground objects
      */
     public static final int TUBE_WIDTH = 48;
 
     private static final int FLUCTUATION = 130;
-    private static  int TubeGap = 120;
+    private static int TubeGap = 120;
     private static final int LOWEST_OPENING = 120;
 
     private Texture topTube, bottomTube;
@@ -30,43 +30,35 @@ public class Tube {
     /**
      * Sets tube gap.
      *
-     * @param aGap the a gap
+     * @param aGap gap size
      */
-    public static void setTubeGap (int aGap) {
+    public static void setTubeGap(int aGap) {
         TubeGap = aGap;
     }
 
     /**
-     * Gets top tube.
-     *
-     * @return the top tube
+     * @return the top tube texture
      */
     public Texture getTopTube() {
         return topTube;
     }
 
     /**
-     * Gets bottom tube.
-     *
-     * @return the bottom tube
+     * @return the bottom tube texture
      */
     public Texture getBottomTube() {
         return bottomTube;
     }
 
     /**
-     * Gets pos top tube.
-     *
-     * @return the pos top tube
+     * @return the position of the top tube
      */
     public Vector2 getPosTopTube() {
         return posTopTube;
     }
 
     /**
-     * Gets pos bot tube.
-     *
-     * @return the pos bot tube
+     * @return the position of the bottom tube
      */
     public Vector2 getPosBotTube() {
         return posBotTube;
@@ -75,7 +67,7 @@ public class Tube {
     /**
      * Instantiates a new Tube.
      *
-     * @param x the x
+     * @param x places new tube on fixed x-axis
      */
     public Tube(float x) {
         topTube = new Texture(AppPreferences.getPrefToptube());
@@ -91,7 +83,7 @@ public class Tube {
     }
 
     /**
-     * Reposition.
+     * Positions tubes on the playground
      *
      * @param x the x
      */
@@ -103,18 +95,16 @@ public class Tube {
     }
 
     /**
-     * Collides boolean.
+     * Collision detection
      *
-     * @param player the player
+     * @param player the player object bounds
      * @return the boolean
      */
     public boolean collides(Rectangle player) {
         return player.overlaps(boundsTop) || player.overlaps(boundsBot);
     }
 
-    /**
-     * Dispose.
-     */
+
     public void dispose() {
         topTube.dispose();
         bottomTube.dispose();
