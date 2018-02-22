@@ -67,20 +67,20 @@ public class PreferencesScreen implements Screen {
         skin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
 
         // CHANGE AVATAR BUTTONS
-        Texture avaTexture01 = new Texture(Gdx.files.internal("birdDefault.png"));
+        Texture avaTexture01 = new Texture(Gdx.files.internal("birdDefaultInactive.png"));
         TextureRegion avaTextureRegion01 = new TextureRegion(avaTexture01);
         TextureRegionDrawable avaTextureRegionDrawable = new TextureRegionDrawable(avaTextureRegion01);
 
         ava1 = new ImageButton(avaTextureRegionDrawable);
 
 
-        Texture avaTexture02 = new Texture(Gdx.files.internal("birdAccenture.png"));
+        Texture avaTexture02 = new Texture(Gdx.files.internal("birdAccentureInactive.png"));
         TextureRegion avaTextureRegion02 = new TextureRegion(avaTexture02);
         TextureRegionDrawable avaTextureRegionDrawable02 = new TextureRegionDrawable(avaTextureRegion02);
 
         ava2 = new ImageButton(avaTextureRegionDrawable02);
 
-        Texture avaTexture03 = new Texture(Gdx.files.internal("birdThird.png"));
+        Texture avaTexture03 = new Texture(Gdx.files.internal("birdThirdInactive.png"));
         TextureRegion avaTextureRegion03 = new TextureRegion(avaTexture03);
         TextureRegionDrawable avaTextureRegionDrawable03 = new TextureRegionDrawable(avaTextureRegion03);
 
