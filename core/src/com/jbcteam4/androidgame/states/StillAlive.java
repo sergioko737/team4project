@@ -1,6 +1,5 @@
 package com.jbcteam4.androidgame.states;
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -10,7 +9,7 @@ import com.jbcteam4.androidgame.AppPreferences;
 import com.jbcteam4.androidgame.FlappyStarter;
 
 /**
- * The type Still alive.
+ * The type Still alive. Showing in pauses betveen lives, when game is still not over
  */
 public class StillAlive extends State {
 
@@ -29,9 +28,6 @@ public class StillAlive extends State {
         background = new Texture(AppPreferences.getPrefBackground());
         tryagain = new Texture("tryagain.png");
         font = new BitmapFont();
-
-
-//        PlayState.setNewHiScore();
     }
 
     @Override
@@ -39,7 +35,6 @@ public class StillAlive extends State {
         if(Gdx.input.justTouched()){
             gsm.set(new PlayState(gsm));
         }
-
     }
 
     @Override
@@ -52,24 +47,18 @@ public class StillAlive extends State {
 
         font.setColor(Color.WHITE);         // font
         font.getData().setScale(2);         // font
-
         sb.setProjectionMatrix(camera.combined);
         sb.begin();
         sb.draw(background, 0, 0);
         sb.draw(tryagain, camera.position.x - tryagain.getWidth() / 2, camera.position.y + 40);
         font.draw(sb, String.valueOf("Your score: "+ PlayState.score), camera.position.x - (camera.viewportWidth / 2) + 33, 75); // score output
         font.draw(sb, String.valueOf("Lives left: "+ PlayState.lives), camera.position.x - (camera.viewportWidth / 2) + 50, 320); // Lives Left
-
         sb.end();
-
     }
 
     @Override
     public void dispose() {
         background.dispose();
         tryagain.dispose();
-
-        System.out.println("StillAlive Disposed");
-
     }
 }
