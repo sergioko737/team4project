@@ -23,7 +23,6 @@ public class LoadingScreen implements Screen {
     public void show() {
 
     }
-    // Change screen to menu screen
     @Override
     public void render(float delta) {
         parent.changeScreen(FlappyStarter.MENU);

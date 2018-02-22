@@ -3,6 +3,7 @@ package com.jbcteam4.androidgame.views;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -49,7 +50,6 @@ public class PreferencesScreen implements Screen {
      */
     public PreferencesScreen(FlappyStarter flappyStarter) {
         parent = flappyStarter;
-        /// create stage and set it as input processor
         stage = new Stage(new ScreenViewport());
         texture = new Texture(AppPreferences.getPrefBackground());
     }
@@ -59,10 +59,6 @@ public class PreferencesScreen implements Screen {
         stage.clear();
         Gdx.input.setInputProcessor(stage);
         Gdx.input.setCatchBackKey(true);
-
-
-        // Create a table that fills the screen. Everything else will go inside
-        // this table.
         Table table = new Table();
         table.setFillParent(true);
         if (Gdx.graphics.getWidth() > 800) {
@@ -70,12 +66,8 @@ public class PreferencesScreen implements Screen {
             table.scaleBy(3.0f);
         }
         table.setOrigin(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
-
-        // table.setDebug(true);
         stage.addActor(table);
-
-        // temporary until we have asset manager in
-        Skin skin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
+        skin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
 
         // CHANGE AVATAR BUTTONS
         Texture avaTexture01 = new Texture(Gdx.files.internal("birdDefault.png"));
@@ -224,15 +216,22 @@ public class PreferencesScreen implements Screen {
         });
 
         Label titleLabel = new Label("Preferences", skin);
+        titleLabel.setColor(Color.BLACK);
         titleLabel.setFontScale(1.5f);
         Label changeAvatarLabel = new Label("Select avatar", skin);
+        changeAvatarLabel.setColor(Color.BLACK);
         Label backgroundSelectorLabel = new Label("Select playground", skin);
+        backgroundSelectorLabel.setColor(Color.BLACK);
         Label volumeMusicLabel = new Label("Music Volume", skin);
+        volumeMusicLabel.setColor(Color.BLACK);
         Label volumeSoundLabel = new Label("Sound Volume", skin);
+        volumeSoundLabel.setColor(Color.BLACK);
         Label musicOnOffLabel = new Label("ON/OFF", skin);
+        musicOnOffLabel.setColor(Color.BLACK);
         Label soundOnOffLabel = new Label("ON/OFF", skin);
+        soundOnOffLabel.setColor(Color.BLACK);
 
-        //table.debug();
+
         table.add(titleLabel).colspan(3).center();
         table.row().pad(20, 0, 0, 0);
         table.add(changeAvatarLabel).colspan(3).center();
@@ -263,7 +262,6 @@ public class PreferencesScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        // clear the screen ready for next set of images to be drawn
         Gdx.graphics.setContinuousRendering(false);
         Gdx.gl.glClearColor(0f, 0f, 0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -277,8 +275,6 @@ public class PreferencesScreen implements Screen {
             parent.changeScreen(FlappyStarter.MENU);
 
         }
-
-        // tell our stage to do actions and draw itself
         stage.draw();
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
 
