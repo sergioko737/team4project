@@ -44,25 +44,13 @@ public class AppPreferences {
         return getPrefs().getString(PREF_BACKGROUND, background[0]);
     }
 
-    /**
-     * The Birds.
-     */
-    public static String[] birds = {"birdDefault.png", "birdAccenture.png", "birdThird.png",
+    public static final String[] birds = {"birdDefault.png", "birdAccenture.png", "birdThird.png",
             "birdDefaultInactive.png", "birdAccentureInactive.png", "birdThirdInactive.png",
             "birdDefaultAnimation.png", "birdAccentureAnimation.png", "birdThirdAnimation.png"};
 
-    /**
-     * The Background.
-     */
-    public static String[] background = {"bg-01.png", "bg-02.png", "bg-03.png"};
-    /**
-     * The Top tube.
-     */
-    public static String[] topTube = {"toptube-01.png", "toptube-02.png", "toptube-03.png"};
-    /**
-     * The Bottom tube.
-     */
-    public static String[] bottomTube = {"bottomtube-01.png", "bottomtube-02.png", "bottomtube-03.png"};
+    public static final String[] background = {"bg-01.png", "bg-02.png", "bg-03.png"};
+    public static final String[] topTube = {"toptube-01.png", "toptube-02.png", "toptube-03.png"};
+    public static final String[] bottomTube = {"bottomtube-01.png", "bottomtube-02.png", "bottomtube-03.png"};
 
     /**
      * Gets pref bird avatar.
@@ -97,11 +85,11 @@ public class AppPreferences {
      * @param z the z
      */
     public static void setPrefBirdAnimation(int z) {
-        getPrefs().putString(PREF_BIRD_ANIMATION, birds[z+6]).flush();
+        getPrefs().putString(PREF_BIRD_ANIMATION, birds[z + 6]).flush();
     }
 
     /**
-     * Sets pref background selector.
+     * Sets pref background selector state to determine background image
      *
      * @param x the x
      */
@@ -139,7 +127,7 @@ public class AppPreferences {
     /**
      * Sets pref toptube.
      *
-     * @param z the z
+     * @param z
      */
     public static void setPrefToptube(int z) {
         getPrefs().putString(PREF_TOPTUBE, topTube[z]).flush();
@@ -148,14 +136,14 @@ public class AppPreferences {
     /**
      * Gets pref bottomtube.
      *
-     * @return the pref bottomtube
+     * @return the pref bottomtube image
      */
     public static String getPrefBottomtube() {
         return getPrefs().getString(PREF_BOTTOMTUBE, bottomTube[0]);
     }
 
     /**
-     * Sets pref bottomtube.
+     * Sets pref bottomtube image
      *
      * @param z the z
      */
@@ -184,7 +172,7 @@ public class AppPreferences {
     /**
      * Gets music volume.
      *
-     * @return the music volume
+     * @return the music volume level
      */
     public static float getMusicVolume() {
         return getPrefs().getFloat(PREF_MUSIC_VOLUME, 0.5f);
@@ -193,7 +181,7 @@ public class AppPreferences {
     /**
      * Sets music volume.
      *
-     * @param volume the volume
+     * @param volume the volume level
      */
     public static void setMusicVolume(float volume) {
         getPrefs().putFloat(PREF_MUSIC_VOLUME, volume).flush();
@@ -222,7 +210,7 @@ public class AppPreferences {
     /**
      * Gets sound fx volume.
      *
-     * @return the sound fx volume
+     * @return the sound fx volume level
      */
     public static float getSoundFXVolume() {
         return getPrefs().getFloat(PREF_SOUND_VOLUME, 0.5f);
@@ -231,7 +219,7 @@ public class AppPreferences {
     /**
      * Sets sound fx volume.
      *
-     * @param volume the volume
+     * @param volume the volume level
      */
     public static void setSoundFXVolume(float volume) {
         getPrefs().putFloat(PREF_SOUND_VOLUME, volume).flush();
@@ -249,9 +237,7 @@ public class AppPreferences {
     }
 
     /**
-     * Gets pref hi score.
-     *
-     * @return the pref hi score
+     * @return the stored in preferences hi score value
      */
     public static int getPrefHiScore() {
         return getPrefs().getInteger(PREF_HI_SCORE, 3);

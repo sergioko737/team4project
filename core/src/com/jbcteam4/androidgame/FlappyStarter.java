@@ -16,13 +16,8 @@ import com.jbcteam4.androidgame.views.PreferencesScreen;
  */
 public class FlappyStarter extends Game {
 
-    /**
-     * The constant WIDTH.
-     */
+
     public static final int WIDTH = 480;
-    /**
-     * The constant HEIGHT.
-     */
     public static final int HEIGHT = 800;
 
 
@@ -94,7 +89,7 @@ public class FlappyStarter extends Game {
                 break;
         }
     }
-    
+
     @Override
     public void dispose() {
         playingSong.dispose();
