@@ -16,6 +16,9 @@ package com.jbcteam4.androidgame.states;
         import com.jbcteam4.androidgame.GifDecoder;
         import com.jbcteam4.androidgame.sprites.Tube;
 
+/**
+ * The type Game over.
+ */
 public class GameOver extends State {
 
     private Texture background;
@@ -23,8 +26,16 @@ public class GameOver extends State {
     private BitmapFont font;
     private Texture ohNoBird;  // temporary
     private Animation<TextureRegion> animation;
+    /**
+     * The Elapsed.
+     */
     float elapsed;
 
+    /**
+     * Instantiates a new Game over.
+     *
+     * @param gsm the gsm
+     */
     public GameOver(GameStateManager gsm) {
         super(gsm);
         camera.setToOrtho(false, FlappyStarter.WIDTH / 2, FlappyStarter.HEIGHT / 2);

@@ -17,23 +17,37 @@ import com.jbcteam4.androidgame.states.PlayState;
 /**
  * Created by student on 18.2.13.
  */
-
 public class MainScreen implements Screen {
+    /**
+     * The constant WIDTH.
+     */
     public static final int WIDTH = 480;
+    /**
+     * The constant HEIGHT.
+     */
     public static final int HEIGHT = 800;
 
+    /**
+     * The constant TITLE.
+     */
     public static final String TITLE = "Flappy Riga";
 
     private GameStateManager gsm;
     private SpriteBatch batch;
+    /**
+     * The Parent.
+     */
     FlappyStarter parent;
 
     private Music music;
     private Stage stage;
 
 
-
-
+    /**
+     * Instantiates a new Main screen.
+     *
+     * @param flappyStarter the flappy starter
+     */
     public MainScreen(FlappyStarter flappyStarter) {
         parent = flappyStarter;
         batch = new SpriteBatch();

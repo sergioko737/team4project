@@ -16,6 +16,9 @@ package com.jbcteam4.androidgame.states;
         import com.jbcteam4.androidgame.sprites.Tube;
 
 
+/**
+ * The type Play state.
+ */
 public class PlayState extends State {
 
     private static final int TUBE_SPACING = 125; // 125 standart
@@ -36,12 +39,29 @@ public class PlayState extends State {
 //    SharedPreferences prefs = this.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE);
 //    int oldScore = prefs.getInt("highScore", 0);
 
+    /**
+     * The Frames.
+     */
     public int frames = 0;      // adding frames
+    /**
+     * The constant score.
+     */
     public static int score = 0;    // adding score field
     private static int liveScore = 0;
+    /**
+     * The constant hiScore.
+     */
     public static int hiScore = AppPreferences.getPrefHiScore();    // adding hiscore
+    /**
+     * The constant lives.
+     */
     public static int lives = 3;
 
+    /**
+     * Instantiates a new Play state.
+     *
+     * @param gsm the gsm
+     */
     public PlayState(GameStateManager gsm) {
 
         super(gsm);
@@ -66,6 +86,9 @@ public class PlayState extends State {
         }
     }
 
+    /**
+     * Sets new hi score.
+     */
     public static void setNewHiScore() {
         if (score > hiScore) {
             hiScore = score;

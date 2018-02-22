@@ -8,8 +8,14 @@ import com.jbcteam4.androidgame.AppPreferences;
 
 import java.util.Random;
 
+/**
+ * The type Tube.
+ */
 public class Tube {
 
+    /**
+     * The constant TUBE_WIDTH.
+     */
     public static final int TUBE_WIDTH = 48;
 
     private static final int FLUCTUATION = 130;
@@ -21,26 +27,56 @@ public class Tube {
     private Random rand;
     private Rectangle boundsTop, boundsBot;
 
+    /**
+     * Sets tube gap.
+     *
+     * @param aGap the a gap
+     */
     public static void setTubeGap (int aGap) {
         TubeGap = aGap;
     }
 
+    /**
+     * Gets top tube.
+     *
+     * @return the top tube
+     */
     public Texture getTopTube() {
         return topTube;
     }
 
+    /**
+     * Gets bottom tube.
+     *
+     * @return the bottom tube
+     */
     public Texture getBottomTube() {
         return bottomTube;
     }
 
+    /**
+     * Gets pos top tube.
+     *
+     * @return the pos top tube
+     */
     public Vector2 getPosTopTube() {
         return posTopTube;
     }
 
+    /**
+     * Gets pos bot tube.
+     *
+     * @return the pos bot tube
+     */
     public Vector2 getPosBotTube() {
         return posBotTube;
     }
 
+    /**
+     * Instantiates a new Tube.
+     *
+     * @param x the x
+     */
     public Tube(float x) {
         topTube = new Texture(AppPreferences.getPrefToptube());
         bottomTube = new Texture(AppPreferences.getPrefBottomtube());
@@ -54,6 +90,11 @@ public class Tube {
 
     }
 
+    /**
+     * Reposition.
+     *
+     * @param x the x
+     */
     public void reposition(float x) {
         posTopTube.set(x, rand.nextInt(FLUCTUATION) + TubeGap + LOWEST_OPENING);
         posBotTube.set(x, posTopTube.y - TubeGap - bottomTube.getHeight());
@@ -61,10 +102,19 @@ public class Tube {
         boundsBot.setPosition(posBotTube.x, posBotTube.y);
     }
 
+    /**
+     * Collides boolean.
+     *
+     * @param player the player
+     * @return the boolean
+     */
     public boolean collides(Rectangle player) {
         return player.overlaps(boundsTop) || player.overlaps(boundsBot);
     }
 
+    /**
+     * Dispose.
+     */
     public void dispose() {
         topTube.dispose();
         bottomTube.dispose();

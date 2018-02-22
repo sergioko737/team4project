@@ -21,7 +21,6 @@ import com.jbcteam4.androidgame.FlappyStarter;
 /**
  * Credit screen
  */
-
 public class CreditScreen implements Screen {
 
     private FlappyStarter parent;
@@ -36,6 +35,11 @@ public class CreditScreen implements Screen {
     private Skin skin;
 
 
+    /**
+     * Instantiates a new Credit screen.
+     *
+     * @param flappyStarter the flappy starter
+     */
     public CreditScreen(FlappyStarter flappyStarter) {
         parent = flappyStarter;
         /// create stage and set it as input processor

@@ -10,6 +10,9 @@ package com.jbcteam4.androidgame.sprites;
         import com.jbcteam4.androidgame.states.PlayState;
 
 
+/**
+ * The type Bird.
+ */
 public class Bird {
     private static final int MOVEMENT = 100;
     private static final int GRAVITY = -15;
@@ -20,6 +23,12 @@ public class Bird {
     private Sound flap;
     private Texture texture;
 
+    /**
+     * Instantiates a new Bird.
+     *
+     * @param x the x
+     * @param y the y
+     */
     public Bird(int x, int y){
         position = new Vector3(x, y, 0);
         velosity = new Vector3(0, 0, 0);
@@ -30,14 +39,29 @@ public class Bird {
 
     }
 
+    /**
+     * Gets position.
+     *
+     * @return the position
+     */
     public Vector3 getPosition() {
         return position;
     }
 
+    /**
+     * Gets bird.
+     *
+     * @return the bird
+     */
     public TextureRegion getBird() {
         return birdAnimation.getFrame();
     }
 
+    /**
+     * Update.
+     *
+     * @param dt the dt
+     */
     public void update(float dt){
         birdAnimation.update(dt);
         if (position.y > 0)
@@ -52,6 +76,10 @@ public class Bird {
 
 
     }
+
+    /**
+     * Jump.
+     */
     public void jump(){
         velosity.y = 220;
         if (AppPreferences.isSoundFXEnabled()) {
@@ -60,11 +88,19 @@ public class Bird {
 
     }
 
+    /**
+     * Get bounds rectangle.
+     *
+     * @return the rectangle
+     */
     public Rectangle getBounds(){
         return bounds;
     }
 
 
+    /**
+     * Dispose.
+     */
     public void dispose() {
         texture.dispose();
         flap.dispose();

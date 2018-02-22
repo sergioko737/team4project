@@ -10,12 +10,20 @@ import com.jbcteam4.androidgame.AppPreferences;
 import com.jbcteam4.androidgame.FlappyStarter;
 import com.jbcteam4.androidgame.states.PlayState;
 
+/**
+ * The type Still alive.
+ */
 public class StillAlive extends State {
 
     private Texture background;
     private Texture tryagain;
     private BitmapFont font;
 
+    /**
+     * Instantiates a new Still alive.
+     *
+     * @param gsm the gsm
+     */
     public StillAlive(GameStateManager gsm) {
         super(gsm);
         camera.setToOrtho(false, FlappyStarter.WIDTH / 2, FlappyStarter.HEIGHT / 2);

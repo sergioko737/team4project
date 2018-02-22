@@ -36,6 +36,9 @@ public class FlappyStarter extends Game {
      * The Ass man.
      */
     public MyAssetManager assMan = new MyAssetManager();
+    /**
+     * The Playing song.
+     */
     public Music playingSong;
 
     /**

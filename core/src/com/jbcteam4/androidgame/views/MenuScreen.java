@@ -20,12 +20,18 @@ import com.jbcteam4.androidgame.AppPreferences;
 import com.jbcteam4.androidgame.FlappyStarter;
 
 
+/**
+ * The type Menu screen.
+ */
 public class MenuScreen implements Screen {
 
     private FlappyStarter parent;
     private Stage stage;
     private Skin skin;
     private SpriteBatch batch;
+    /**
+     * The constant texture.
+     */
     public static Texture texture;
     private TextButton newGame;
     private TextButton preferences;
@@ -35,6 +41,11 @@ public class MenuScreen implements Screen {
 
     private Texture backGround;
 
+    /**
+     * Instantiates a new Menu screen.
+     *
+     * @param flappyStarter the flappy starter
+     */
     public MenuScreen(FlappyStarter flappyStarter){
         parent = flappyStarter;
         /// create stage and set it as input processor

@@ -26,16 +26,27 @@ import com.jbcteam4.androidgame.AppPreferences;
 import com.jbcteam4.androidgame.FlappyStarter;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
+/**
+ * The type Preferences screen.
+ */
 public class PreferencesScreen implements Screen {
 
     private FlappyStarter parent;
     private Stage stage;
+    /**
+     * The Texture.
+     */
     public Texture texture;
     private Skin skin;
     private ImageButton ava1;
     private ImageButton ava2;
     private ImageButton ava3;
 
+    /**
+     * Instantiates a new Preferences screen.
+     *
+     * @param flappyStarter the flappy starter
+     */
     public PreferencesScreen(FlappyStarter flappyStarter) {
         parent = flappyStarter;
         /// create stage and set it as input processor

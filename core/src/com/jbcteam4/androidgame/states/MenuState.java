@@ -8,11 +8,19 @@ package com.jbcteam4.androidgame.states;
         import com.jbcteam4.androidgame.FlappyStarter;
 
 
+/**
+ * The type Menu state.
+ */
 public class MenuState extends State {
 
     private Texture background;
     private Texture playBtn;
 
+    /**
+     * Instantiates a new Menu state.
+     *
+     * @param gsm the gsm
+     */
     public MenuState(GameStateManager gsm) {
         super(gsm);
         camera.setToOrtho(false, FlappyStarter.WIDTH / 2, FlappyStarter.HEIGHT / 2);
