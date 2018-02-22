@@ -80,7 +80,7 @@ public class PreferencesScreen implements Screen {
 
         ava2 = new ImageButton(avaTextureRegionDrawable02);
 
-        Texture avaTexture03 = new Texture(Gdx.files.internal("birdDefault.png"));
+        Texture avaTexture03 = new Texture(Gdx.files.internal("birdThird.png"));
         TextureRegion avaTextureRegion03 = new TextureRegion(avaTexture03);
         TextureRegionDrawable avaTextureRegionDrawable03 = new TextureRegionDrawable(avaTextureRegion03);
 

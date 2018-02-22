@@ -232,8 +232,7 @@ public class AppPreferences {
      * @param newHiscore the new hiscore
      */
     public static void setPrefHiScore(int newHiscore) {
-        getPrefs().putInteger(PREF_HI_SCORE, newHiscore);
-        getPrefs().flush();
+        getPrefs().putInteger(PREF_HI_SCORE, newHiscore).flush();
     }
 
     /**
