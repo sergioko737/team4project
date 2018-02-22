@@ -86,104 +86,51 @@ public class GifDecoder {
      * The Pixel aspect.
      */
     protected int pixelAspect; // pixel aspect ratio
-    /**
-     * The Lct flag.
-     */
+
     protected boolean lctFlag; // local color table flag
-    /**
-     * The Interlace.
-     */
+
     protected boolean interlace; // interlace flag
-    /**
-     * The Lct size.
-     */
+
     protected int lctSize; // local color table size
-    /**
-     * The Ix.
-     */
-    protected int ix, /**
-     * The Iy.
-     */
-    iy, /**
-     * The Iw.
-     */
-    iw, /**
-     * The Ih.
-     */
-    ih; // current image rectangle
-    /**
-     * The Lrx.
-     */
-    protected int lrx, /**
-     * The Lry.
-     */
-    lry, /**
-     * The Lrw.
-     */
-    lrw, /**
-     * The Lrh.
-     */
-    lrh;
-    /**
-     * The Image.
-     */
+
+    protected int ix,
+            iy,
+            iw,
+            ih; // current image rectangle
+
+    protected int lrx, lry,
+            lrw,
+            lrh;
+
     protected DixieMap image; // current frame
-    /**
-     * The Last pixmap.
-     */
+
     protected DixieMap lastPixmap; // previous frame
-    /**
-     * The Block.
-     */
+
     protected byte[] block = new byte[256]; // current data block
-    /**
-     * The Block size.
-     */
+
     protected int blockSize = 0; // block size last graphic control extension info
-    /**
-     * The Dispose.
-     */
+
     protected int dispose = 0; // 0=no action; 1=leave in place; 2=restore to bg; 3=restore to prev
-    /**
-     * The Last dispose.
-     */
+
     protected int lastDispose = 0;
-    /**
-     * The Transparency.
-     */
+
     protected boolean transparency = false; // use transparent color
-    /**
-     * The Delay.
-     */
+
     protected int delay = 0; // delay in milliseconds
-    /**
-     * The Trans index.
-     */
+
     protected int transIndex; // transparent color index
-    /**
-     * The Prefix.
-     */
-// LZW decoder working arrays
+
+    // LZW decoder working arrays
     protected short[] prefix;
-    /**
-     * The Suffix.
-     */
+
     protected byte[] suffix;
-    /**
-     * The Pixel stack.
-     */
+
     protected byte[] pixelStack;
-    /**
-     * The Pixels.
-     */
+
     protected byte[] pixels;
-    /**
-     * The Frames.
-     */
+
     protected Vector<GifFrame> frames; // frames read from current file
-    /**
-     * The Frame count.
-     */
+
     protected int frameCount;
 
     private static class DixieMap extends Pixmap {
@@ -211,8 +158,8 @@ public class GifDecoder {
 
             int x, y;
 
-            for(y = 0; y < h; y++) {
-                for(x = 0; x < w; x++) {
+            for (y = 0; y < h; y++) {
+                for (x = 0; x < w; x++) {
                     int pxl_ARGB8888 = data[x + y * w];
                     int pxl_RGBA8888 =
                             ((pxl_ARGB8888 >> 24) & 0x000000ff) | ((pxl_ARGB8888 << 8) & 0xffffff00);
@@ -238,9 +185,9 @@ public class GifDecoder {
 
             int k, l;
 
-            for(k = y;  k < y + height; k++) {
+            for (k = y; k < y + height; k++) {
                 int _offset = offset;
-                for(l = x; l < x + width; l++) {
+                for (l = x; l < x + width; l++) {
                     int pxl = bb.getInt(4 * (l + k * width));
 
                     // convert RGBA8888 > ARGB8888
@@ -399,7 +346,6 @@ public class GifDecoder {
             }
         }
         image = new DixieMap(dest, width, height, Pixmap.Format.RGBA8888);
-        //Pixmap.createPixmap(dest, width, height, Config.ARGB_4444);
     }
 
     /**
@@ -475,7 +421,7 @@ public class GifDecoder {
         }
         // Decode GIF pixel stream.
         datum = bits = count = first = top = pi = bi = 0;
-        for (i = 0; i < npix;) {
+        for (i = 0; i < npix; ) {
             if (top == 0) {
                 if (bits < code_size) {
                     // Load bytes until there are enough bits for a code.
@@ -860,19 +806,19 @@ public class GifDecoder {
         Pixmap frame = getFrame(0);
         int width = frame.getWidth();
         int height = frame.getHeight();
-        int vzones = (int)Math.sqrt((double)nrFrames);
+        int vzones = (int) Math.sqrt((double) nrFrames);
         int hzones = vzones;
 
-        while(vzones * hzones < nrFrames) vzones++;
+        while (vzones * hzones < nrFrames) vzones++;
 
         int v, h;
 
         Pixmap target = new Pixmap(width * hzones, height * vzones, Pixmap.Format.RGBA8888);
 
-        for(h = 0; h < hzones; h++) {
-            for(v = 0; v < vzones; v++) {
+        for (h = 0; h < hzones; h++) {
+            for (v = 0; v < vzones; v++) {
                 int frameID = v + h * vzones;
-                if(frameID < nrFrames) {
+                if (frameID < nrFrames) {
                     frame = getFrame(frameID);
                     target.drawPixmap(frame, h * width, v * height);
                 }
@@ -882,16 +828,16 @@ public class GifDecoder {
         Texture texture = new Texture(target);
         Array<TextureRegion> texReg = new Array<TextureRegion>();
 
-        for(h = 0; h < hzones; h++) {
-            for(v = 0; v < vzones; v++) {
+        for (h = 0; h < hzones; h++) {
+            for (v = 0; v < vzones; v++) {
                 int frameID = v + h * vzones;
-                if(frameID < nrFrames) {
+                if (frameID < nrFrames) {
                     TextureRegion tr = new TextureRegion(texture, h * width, v * height, width, height);
                     texReg.add(tr);
                 }
             }
         }
-        float frameDuration = (float)getDelay(0);
+        float frameDuration = (float) getDelay(0);
         frameDuration /= 1000; // convert milliseconds into seconds
         Animation<TextureRegion> result = new Animation<TextureRegion>(frameDuration, texReg, playMode);
 

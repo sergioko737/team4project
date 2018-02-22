@@ -5,7 +5,8 @@ import com.badlogic.gdx.Preferences;
 
 
 /**
- * The type App preferences.
+ * The type AppPreferences. This class provides to application ability to store in local file
+ * it's personal settings.
  */
 public class AppPreferences {
     private static final String PREFS_NAME = "b2dtut";
@@ -25,7 +26,7 @@ public class AppPreferences {
     private static final String PREF_HI_SCORE = "hiScore";
 
     /**
-     * Gets prefs.
+     * Provides access to Preference object (wraps up Android/SharedPreferences)
      *
      * @return the prefs
      */
