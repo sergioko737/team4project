@@ -25,7 +25,6 @@ public class FlappyStarter extends Game {
     private PreferencesScreen preferencesScreen;
     private MenuScreen menuScreen;
     private MainScreen mainScreen;
-    private AppPreferences preferences;
     private CreditScreen creditScreen;
     /**
      * The Ass man.
@@ -44,7 +43,7 @@ public class FlappyStarter extends Game {
     public void create() {
         Gdx.graphics.requestRendering();
         loadingScreen = new LoadingScreen(this);
-        preferences = new AppPreferences();
+
         setScreen(loadingScreen);
 
         // tells our asset manger that we want to load the images set in loadImages method

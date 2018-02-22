@@ -244,24 +244,6 @@ public class GifDecoder {
     }
 
     /**
-     * Gets the first (or only) image read.
-     *
-     * @return BufferedPixmap containing first frame, or null if none.
-     */
-    public Pixmap getPixmap() {
-        return getFrame(0);
-    }
-
-    /**
-     * Gets the "Netscape" iteration count, if any. A count of 0 means repeat indefinitely.
-     *
-     * @return iteration count if one was specified, else 1.
-     */
-    public int getLoopCount() {
-        return loopCount;
-    }
-
-    /**
      * Creates new frame image from current data (and previous frames as specified by their disposition codes).
      */
     protected void setPixels() {
