@@ -137,9 +137,9 @@ public class PlayState extends State {
         font.draw(sb, String.valueOf(score + liveScore), camera.position.x - (camera.viewportWidth / 2) + 10, 43); // score output
         font1.draw(sb, "HiScore: " + String.valueOf(hiScore), camera.position.x - (camera.viewportWidth / 2) + 75, 43); // jumps output
 
-        if (liveScore == 22){
+        if (liveScore == 26){
             font2.draw(sb, "Level Up!", camera.position.x - (camera.viewportWidth / 2) + 40, camera.viewportHeight - 50);
-        } else if (liveScore == 7){
+        } else if (liveScore == 11){
             font2.draw(sb, "Level Up!", camera.position.x - (camera.viewportWidth / 2) + 40, camera.viewportHeight - 50);
         }
 
