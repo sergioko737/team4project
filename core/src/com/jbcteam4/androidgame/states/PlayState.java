@@ -12,7 +12,6 @@ package com.jbcteam4.androidgame.states;
         import com.jbcteam4.androidgame.FlappyStarter;
         import com.jbcteam4.androidgame.sprites.Bird;
         import com.jbcteam4.androidgame.AppPreferences;
-        import com.jbcteam4.androidgame.GifDecoder;
         import com.jbcteam4.androidgame.sprites.Tube;
 
 

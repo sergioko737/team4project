@@ -11,10 +11,8 @@ package com.jbcteam4.androidgame.states;
         import com.badlogic.gdx.graphics.g2d.TextureRegion;
         import com.jbcteam4.androidgame.AppPreferences;
         import com.jbcteam4.androidgame.FlappyStarter;
-        import com.jbcteam4.androidgame.states.PlayState;
         import com.jbcteam4.androidgame.sprites.Tube;
         import com.jbcteam4.androidgame.GifDecoder;
-        import com.jbcteam4.androidgame.sprites.Tube;
 
 /**
  * The type Game over.
