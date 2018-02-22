@@ -42,11 +42,8 @@ public class CreditScreen implements Screen {
      */
     public CreditScreen(FlappyStarter flappyStarter) {
         parent = flappyStarter;
-        /// create stage and set it as input processor
         stage = new Stage(new ScreenViewport());
         skin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
-
-
     }
 
     @Override
@@ -55,10 +52,6 @@ public class CreditScreen implements Screen {
         Gdx.input.setInputProcessor(stage);
 
         Gdx.input.setCatchBackKey(true);
-
-
-        // Create a table that fills the screen. Everything else will go inside
-        // this table.
         Table table = new Table();
         table.setFillParent(true);
         if (Gdx.graphics.getWidth() > 800) {
@@ -66,8 +59,6 @@ public class CreditScreen implements Screen {
             table.scaleBy(3.3f);
         }
         table.setOrigin(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
-
-        //table.setDebug(true);
         stage.addActor(table);
         titleLabel = new Label("Created by:", skin);
         titleLabel.setFontScale(1.5f);
@@ -99,13 +90,10 @@ public class CreditScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        // clear the screen ready for next set of images to be drawn
         Gdx.graphics.setContinuousRendering(false);
         Gdx.gl.glClearColor(0f, 0f, 0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.getBatch().begin();
-
-      
         stage.getBatch().end();
 
         if (Gdx.input.isKeyPressed(Input.Keys.BACK)) {
@@ -113,8 +101,6 @@ public class CreditScreen implements Screen {
             parent.changeScreen(FlappyStarter.MENU);
 
         }
-
-        // tell our stage to do actions and draw itself
         stage.draw();
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
 
