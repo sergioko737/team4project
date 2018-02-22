@@ -10,6 +10,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Array;
 
+/**
+ * The type Gif decoder.
+ */
 public class GifDecoder {
     /**
      * File read status: No errors.
@@ -23,56 +26,140 @@ public class GifDecoder {
      * File read status: Unable to open source.
      */
     public static final int STATUS_OPEN_ERROR = 2;
-    /** max decoder pixel stack size */
+    /**
+     * max decoder pixel stack size
+     */
     protected static final int MAX_STACK_SIZE = 4096;
+    /**
+     * The In.
+     */
     protected InputStream in;
+    /**
+     * The Status.
+     */
     protected int status;
+    /**
+     * The Width.
+     */
     protected int width; // full image width
+    /**
+     * The Height.
+     */
     protected int height; // full image height
+    /**
+     * The Gct flag.
+     */
     protected boolean gctFlag; // global color table used
+    /**
+     * The Gct size.
+     */
     protected int gctSize; // size of global color table
+    /**
+     * The Loop count.
+     */
     protected int loopCount = 1; // iterations; 0 = repeat forever
+    /**
+     * The Gct.
+     */
     protected int[] gct; // global color table
+    /**
+     * The Lct.
+     */
     protected int[] lct; // local color table
+    /**
+     * The Act.
+     */
     protected int[] act; // active color table
+    /**
+     * The Bg index.
+     */
     protected int bgIndex; // background color index
+    /**
+     * The Bg color.
+     */
     protected int bgColor; // background color
+    /**
+     * The Last bg color.
+     */
     protected int lastBgColor; // previous bg color
+    /**
+     * The Pixel aspect.
+     */
     protected int pixelAspect; // pixel aspect ratio
+
     protected boolean lctFlag; // local color table flag
+
     protected boolean interlace; // interlace flag
+
     protected int lctSize; // local color table size
-    protected int ix, iy, iw, ih; // current image rectangle
-    protected int lrx, lry, lrw, lrh;
+
+    protected int ix,
+            iy,
+            iw,
+            ih; // current image rectangle
+
+    protected int lrx, lry,
+            lrw,
+            lrh;
+
     protected DixieMap image; // current frame
+
     protected DixieMap lastPixmap; // previous frame
+
     protected byte[] block = new byte[256]; // current data block
+
     protected int blockSize = 0; // block size last graphic control extension info
+
     protected int dispose = 0; // 0=no action; 1=leave in place; 2=restore to bg; 3=restore to prev
+
     protected int lastDispose = 0;
+
     protected boolean transparency = false; // use transparent color
+
     protected int delay = 0; // delay in milliseconds
+
     protected int transIndex; // transparent color index
+
     // LZW decoder working arrays
     protected short[] prefix;
+
     protected byte[] suffix;
+
     protected byte[] pixelStack;
+
     protected byte[] pixels;
+
     protected Vector<GifFrame> frames; // frames read from current file
+
     protected int frameCount;
 
     private static class DixieMap extends Pixmap {
+        /**
+         * Instantiates a new Dixie map.
+         *
+         * @param w the w
+         * @param h the h
+         * @param f the f
+         */
         DixieMap(int w, int h, Pixmap.Format f) {
             super(w, h, f);
         }
 
+        /**
+         * Instantiates a new Dixie map.
+         *
+         * @param data the data
+         * @param w    the w
+         * @param h    the h
+         * @param f    the f
+         */
         DixieMap(int[] data, int w, int h, Pixmap.Format f) {
             super(w, h, f);
 
             int x, y;
 
-            for(y = 0; y < h; y++) {
-                for(x = 0; x < w; x++) {
+            for (y = 0; y < h; y++) {
+                for (x = 0; x < w; x++) {
                     int pxl_ARGB8888 = data[x + y * w];
                     int pxl_RGBA8888 =
                             ((pxl_ARGB8888 >> 24) & 0x000000ff) | ((pxl_ARGB8888 << 8) & 0xffffff00);
@@ -82,14 +169,25 @@ public class GifDecoder {
             }
         }
 
+        /**
+         * Gets pixels.
+         *
+         * @param pixels the pixels
+         * @param offset the offset
+         * @param stride the stride
+         * @param x      the x
+         * @param y      the y
+         * @param width  the width
+         * @param height the height
+         */
         void getPixels(int[] pixels, int offset, int stride, int x, int y, int width, int height) {
             java.nio.ByteBuffer bb = getPixels();
 
             int k, l;
 
-            for(k = y;  k < y + height; k++) {
+            for (k = y; k < y + height; k++) {
                 int _offset = offset;
-                for(l = x; l < x + width; l++) {
+                for (l = x; l < x + width; l++) {
                     int pxl = bb.getInt(4 * (l + k * width));
 
                     // convert RGBA8888 > ARGB8888
@@ -101,20 +199,31 @@ public class GifDecoder {
     }
 
     private static class GifFrame {
+        /**
+         * Instantiates a new Gif frame.
+         *
+         * @param im  the im
+         * @param del the del
+         */
         public GifFrame(DixieMap im, int del) {
             image = im;
             delay = del;
         }
 
+        /**
+         * The Image.
+         */
         public DixieMap image;
+        /**
+         * The Delay.
+         */
         public int delay;
     }
 
     /**
      * Gets display duration for specified frame.
      *
-     * @param n
-     *          int index of frame
+     * @param n int index of frame
      * @return delay in milliseconds
      */
     public int getDelay(int n) {
@@ -237,12 +346,12 @@ public class GifDecoder {
             }
         }
         image = new DixieMap(dest, width, height, Pixmap.Format.RGBA8888);
-        //Pixmap.createPixmap(dest, width, height, Config.ARGB_4444);
     }
 
     /**
      * Gets the image contents of frame n.
      *
+     * @param n the n
      * @return BufferedPixmap representation of frame, or null if n is invalid.
      */
     public DixieMap getFrame(int n) {
@@ -255,8 +364,7 @@ public class GifDecoder {
     /**
      * Reads GIF image from stream
      *
-     * @param is
-     *          containing GIF file.
+     * @param is containing GIF file.
      * @return read status code (0 = no errors)
      */
     public int read(InputStream is) {
@@ -313,7 +421,7 @@ public class GifDecoder {
         }
         // Decode GIF pixel stream.
         datum = bits = count = first = top = pi = bi = 0;
-        for (i = 0; i < npix;) {
+        for (i = 0; i < npix; ) {
             if (top == 0) {
                 if (bits < code_size) {
                     // Load bytes until there are enough bits for a code.
@@ -389,6 +497,8 @@ public class GifDecoder {
 
     /**
      * Returns true if an error was encountered during reading/decoding
+     *
+     * @return the boolean
      */
     protected boolean err() {
         return status != STATUS_OK;
@@ -407,6 +517,8 @@ public class GifDecoder {
 
     /**
      * Reads a single byte from the input stream.
+     *
+     * @return the int
      */
     protected int read() {
         int curByte = 0;
@@ -449,8 +561,7 @@ public class GifDecoder {
     /**
      * Reads color table as 256 RGB integer values
      *
-     * @param ncolors
-     *          int number of colors to read
+     * @param ncolors int number of colors to read
      * @return int array containing 256 colors (packed ARGB with full alpha)
      */
     protected int[] readColorTable(int ncolors) {
@@ -650,6 +761,8 @@ public class GifDecoder {
 
     /**
      * Reads next 16-bit value, LSB first
+     *
+     * @return the int
      */
     protected int readShort() {
         // read 16-bit value, LSB first
@@ -682,24 +795,30 @@ public class GifDecoder {
         } while ((blockSize > 0) && !err());
     }
 
+    /**
+     * Gets animation.
+     *
+     * @param playMode the play mode
+     * @return the animation
+     */
     public Animation<TextureRegion> getAnimation(PlayMode playMode) {
         int nrFrames = getFrameCount();
         Pixmap frame = getFrame(0);
         int width = frame.getWidth();
         int height = frame.getHeight();
-        int vzones = (int)Math.sqrt((double)nrFrames);
+        int vzones = (int) Math.sqrt((double) nrFrames);
         int hzones = vzones;
 
-        while(vzones * hzones < nrFrames) vzones++;
+        while (vzones * hzones < nrFrames) vzones++;
 
         int v, h;
 
         Pixmap target = new Pixmap(width * hzones, height * vzones, Pixmap.Format.RGBA8888);
 
-        for(h = 0; h < hzones; h++) {
-            for(v = 0; v < vzones; v++) {
+        for (h = 0; h < hzones; h++) {
+            for (v = 0; v < vzones; v++) {
                 int frameID = v + h * vzones;
-                if(frameID < nrFrames) {
+                if (frameID < nrFrames) {
                     frame = getFrame(frameID);
                     target.drawPixmap(frame, h * width, v * height);
                 }
@@ -709,22 +828,29 @@ public class GifDecoder {
         Texture texture = new Texture(target);
         Array<TextureRegion> texReg = new Array<TextureRegion>();
 
-        for(h = 0; h < hzones; h++) {
-            for(v = 0; v < vzones; v++) {
+        for (h = 0; h < hzones; h++) {
+            for (v = 0; v < vzones; v++) {
                 int frameID = v + h * vzones;
-                if(frameID < nrFrames) {
+                if (frameID < nrFrames) {
                     TextureRegion tr = new TextureRegion(texture, h * width, v * height, width, height);
                     texReg.add(tr);
                 }
             }
         }
-        float frameDuration = (float)getDelay(0);
+        float frameDuration = (float) getDelay(0);
         frameDuration /= 1000; // convert milliseconds into seconds
         Animation<TextureRegion> result = new Animation<TextureRegion>(frameDuration, texReg, playMode);
 
         return result;
     }
 
+    /**
+     * Load gif animation animation.
+     *
+     * @param playMode the play mode
+     * @param is       the is
+     * @return the animation
+     */
     public static Animation<TextureRegion> loadGIFAnimation(Animation.PlayMode playMode, InputStream is) {
         GifDecoder gdec = new GifDecoder();
         gdec.read(is);

@@ -6,9 +6,14 @@ import com.jbcteam4.androidgame.FlappyStarter;
 /**
  * Created by student on 18.2.13.
  */
-
 public class LoadingScreen implements Screen {
     private FlappyStarter parent;
+
+    /**
+     * Instantiates a new Loading screen.
+     *
+     * @param flappyStarter the flappy starter
+     */
     public LoadingScreen(FlappyStarter flappyStarter) {
         parent = flappyStarter;
 
@@ -18,7 +23,6 @@ public class LoadingScreen implements Screen {
     public void show() {
 
     }
-    // Change screen to menu screen
     @Override
     public void render(float delta) {
         parent.changeScreen(FlappyStarter.MENU);

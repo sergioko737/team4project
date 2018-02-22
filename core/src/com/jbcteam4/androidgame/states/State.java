@@ -1,11 +1,12 @@
 package com.jbcteam4.androidgame.states;
 
-
         import com.badlogic.gdx.graphics.OrthographicCamera;
         import com.badlogic.gdx.graphics.g2d.SpriteBatch;
         import com.badlogic.gdx.math.Vector3;
 
-
+/**
+ * The type State. Superclass for all GameStates
+ */
 public abstract class State {
 
     protected OrthographicCamera camera;

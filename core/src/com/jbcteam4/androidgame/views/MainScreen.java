@@ -2,14 +2,12 @@ package com.jbcteam4.androidgame.views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.jbcteam4.androidgame.FlappyStarter;
-import com.jbcteam4.androidgame.states.GameOver;
 import com.jbcteam4.androidgame.states.GameStateManager;
 import com.jbcteam4.androidgame.states.MenuState;
 import com.jbcteam4.androidgame.states.PlayState;
@@ -17,23 +15,19 @@ import com.jbcteam4.androidgame.states.PlayState;
 /**
  * Created by student on 18.2.13.
  */
-
 public class MainScreen implements Screen {
-    public static final int WIDTH = 480;
-    public static final int HEIGHT = 800;
-
-    public static final String TITLE = "Flappy Riga";
-
     private GameStateManager gsm;
     private SpriteBatch batch;
     FlappyStarter parent;
-
     private Music music;
     private Stage stage;
 
 
-
-
+    /**
+     * Instantiates a new Main screen.
+     *
+     * @param flappyStarter the flappy starter
+     */
     public MainScreen(FlappyStarter flappyStarter) {
         parent = flappyStarter;
         batch = new SpriteBatch();

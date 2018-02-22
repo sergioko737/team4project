@@ -1,7 +1,5 @@
 package com.jbcteam4.androidgame.states;
 
-
-
         import com.badlogic.gdx.Gdx;
         import com.badlogic.gdx.graphics.Texture;
         import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -12,16 +10,16 @@ package com.jbcteam4.androidgame.states;
         import com.jbcteam4.androidgame.FlappyStarter;
         import com.jbcteam4.androidgame.sprites.Bird;
         import com.jbcteam4.androidgame.AppPreferences;
-        import com.jbcteam4.androidgame.GifDecoder;
         import com.jbcteam4.androidgame.sprites.Tube;
 
-
+/**
+ * The Play state. The most active part of code, with all gameplay logic.
+ */
 public class PlayState extends State {
 
-    private static final int TUBE_SPACING = 125; // 125 standart
+    private static final int TUBE_SPACING = 125;
     private static final int TUBE_COUNT = 4;
-    private static final int GROUND_Y_OFFSET = -30; // -30 standart
-
+    private static final int GROUND_Y_OFFSET = -30;
     private Bird bird;
     private Texture bg;
     private Texture live;
@@ -30,18 +28,18 @@ public class PlayState extends State {
     private static BitmapFont font;
     private static BitmapFont font1;
     private static BitmapFont font2;
-
     private Array<Tube> tubes;
+    public int frames = 0;   //Frames. Need to count scores in the game
+    public static int score = 0;    // adding score field. Score count in 3 lives
+    private static int liveScore = 0;   // Temporary scores
+    public static int hiScore = AppPreferences.getPrefHiScore();    // adding hiscore Maximum amount of scores
+    public static int lives = 3;    //3 lives at start of the game
 
-//    SharedPreferences prefs = this.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE);
-//    int oldScore = prefs.getInt("highScore", 0);
-
-    public int frames = 0;      // adding frames
-    public static int score = 0;    // adding score field
-    private static int liveScore = 0;
-    public static int hiScore = AppPreferences.getPrefHiScore();    // adding hiscore
-    public static int lives = 3;
-
+    /**
+     * Instantiates a new Play state.
+     *
+     * @param gsm the gsm
+     */
     public PlayState(GameStateManager gsm) {
 
         super(gsm);
@@ -53,10 +51,8 @@ public class PlayState extends State {
         font1 = new BitmapFont();
         font2 = new BitmapFont();
         live = new Texture(AppPreferences.getPrefBirdAvatar());
-
         groundPos1 = new Vector2(camera.position.x - camera.viewportWidth / 2, GROUND_Y_OFFSET);
         groundPos2 = new Vector2((camera.position.x - camera.viewportWidth / 2) + ground.getWidth(), GROUND_Y_OFFSET);
-
         tubes = new Array<Tube>();
         font = new BitmapFont();
         font1 = new BitmapFont();
@@ -66,21 +62,21 @@ public class PlayState extends State {
         }
     }
 
+    /**
+     * Sets new HiScore. If scores after GameOver is > then HiScores
+     */
     public static void setNewHiScore() {
         if (score > hiScore) {
             hiScore = score;
             AppPreferences.setPrefHiScore(score);
         }
-
     }
-
 
     @Override
     protected void handleInput() {
         if (Gdx.input.justTouched()){
             bird.jump();
         }
-
     }
 
     @Override
@@ -91,7 +87,6 @@ public class PlayState extends State {
         camera.position.x = bird.getPosition().x + 80;
 
         for (int i = 0; i < tubes.size; i++){
-
             Tube tube = tubes.get(i);
 
             if (camera.position.x - (camera.viewportWidth / 2) > tube.getPosTopTube().x + tube.getTopTube().getWidth()){
@@ -107,35 +102,28 @@ public class PlayState extends State {
                     score = score + liveScore;
                     gsm.set(new GameOver(gsm));
                 }
-
             }
         }
         frames++;
         liveScore = frames / 73;
-//        score = score + liveScore;
         camera.update();
 
-        if (liveScore > 23){
+        if (liveScore > 22){
             Tube.setTubeGap(75);
-        } else if (liveScore > 8){
+        } else if (liveScore > 7){
             Tube.setTubeGap(95);
         }
-
     }
 
     @Override
     public void render(SpriteBatch sb) {
 
-
-        font.setColor(Color.BLACK);         // font
-        font.getData().setScale(2);         // font
-
-        font2.setColor(Color.WHITE);         // font
-        font2.getData().setScale(2);         // font
-
-        font1.setColor(Color.GRAY);         // font
-        font1.getData().setScale(2);         // font
-
+        font.setColor(Color.BLACK);         //fonts parameters for game screen
+        font.getData().setScale(2);
+        font2.setColor(Color.WHITE);
+        font2.getData().setScale(2);
+        font1.setColor(Color.GRAY);
+        font1.getData().setScale(2);
         sb.setProjectionMatrix(camera.combined);
         sb.begin();
         sb.draw(bg, camera.position.x - (camera.viewportWidth / 2), 0);
@@ -143,18 +131,15 @@ public class PlayState extends State {
         for (Tube tube : tubes) {
             sb.draw(tube.getTopTube(), tube.getPosBotTube().x, tube.getPosTopTube().y);
             sb.draw(tube.getBottomTube(), tube.getPosBotTube().x, tube.getPosBotTube().y);
-
         }
         sb.draw(ground, groundPos1.x, groundPos1.y);
         sb.draw(ground, groundPos2.x, groundPos2.y);
-
         font.draw(sb, String.valueOf(score + liveScore), camera.position.x - (camera.viewportWidth / 2) + 10, 43); // score output
-//        font.draw(sb, String.valueOf(lives), camera.position.x - (camera.viewportWidth / 2) + 40, 43); // test lives output
         font1.draw(sb, "HiScore: " + String.valueOf(hiScore), camera.position.x - (camera.viewportWidth / 2) + 75, 43); // jumps output
 
-        if (liveScore == 25){
+        if (liveScore == 22){
             font2.draw(sb, "Level Up!", camera.position.x - (camera.viewportWidth / 2) + 40, camera.viewportHeight - 50);
-        } else if (liveScore == 10){
+        } else if (liveScore == 7){
             font2.draw(sb, "Level Up!", camera.position.x - (camera.viewportWidth / 2) + 40, camera.viewportHeight - 50);
         }
 
@@ -168,9 +153,7 @@ public class PlayState extends State {
         } else if (lives == 1) {
             sb.draw(live, camera.position.x - (camera.viewportWidth / 2) +5, camera.viewportHeight - 35);
         }
-
         sb.end();
-
     }
 
     @Override
@@ -180,8 +163,6 @@ public class PlayState extends State {
         ground.dispose();
         for (Tube tube : tubes)
             tube.dispose();
-        System.out.println("PlayState Disposed");
-
     }
 
     private void updateGround(){

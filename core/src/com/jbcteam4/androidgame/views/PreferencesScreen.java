@@ -3,6 +3,7 @@ package com.jbcteam4.androidgame.views;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -10,32 +11,42 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.jbcteam4.androidgame.AppPreferences;
 import com.jbcteam4.androidgame.FlappyStarter;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
+/**
+ * The type Preferences screen.
+ */
 public class PreferencesScreen implements Screen {
 
     private FlappyStarter parent;
     private Stage stage;
+    /**
+     * The Texture.
+     */
     public Texture texture;
     private Skin skin;
+    private ImageButton ava1;
+    private ImageButton ava2;
+    private ImageButton ava3;
 
+    /**
+     * Instantiates a new Preferences screen.
+     *
+     * @param flappyStarter the flappy starter
+     */
     public PreferencesScreen(FlappyStarter flappyStarter) {
         parent = flappyStarter;
-        /// create stage and set it as input processor
         stage = new Stage(new ScreenViewport());
         texture = new Texture(AppPreferences.getPrefBackground());
     }
@@ -45,10 +56,6 @@ public class PreferencesScreen implements Screen {
         stage.clear();
         Gdx.input.setInputProcessor(stage);
         Gdx.input.setCatchBackKey(true);
-
-
-        // Create a table that fills the screen. Everything else will go inside
-        // this table.
         Table table = new Table();
         table.setFillParent(true);
         if (Gdx.graphics.getWidth() > 800) {
@@ -56,43 +63,64 @@ public class PreferencesScreen implements Screen {
             table.scaleBy(3.0f);
         }
         table.setOrigin(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
-
-        // table.setDebug(true);
         stage.addActor(table);
-
-        // temporary until we have asset manager in
-        Skin skin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
+        skin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
 
         // CHANGE AVATAR BUTTONS
         Texture avaTexture01 = new Texture(Gdx.files.internal("birdDefault.png"));
         TextureRegion avaTextureRegion01 = new TextureRegion(avaTexture01);
         TextureRegionDrawable avaTextureRegionDrawable = new TextureRegionDrawable(avaTextureRegion01);
 
-        final ImageButton ava1 = new ImageButton(avaTextureRegionDrawable);
+        ava1 = new ImageButton(avaTextureRegionDrawable);
 
-        ava1.addListener(new EventListener() {
-            @Override
-            public boolean handle(Event event) {
-                ava1.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(AppPreferences.getPrefBirdAvatar()))));
-                //ava2.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(AppPreferences.getPrefBirdAvatar()))));
-                //ava3.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(AppPreferences.getPrefBirdAvatar()))));
-
-                return false;
-            }
-        });
 
         Texture avaTexture02 = new Texture(Gdx.files.internal("birdAccenture.png"));
         TextureRegion avaTextureRegion02 = new TextureRegion(avaTexture02);
         TextureRegionDrawable avaTextureRegionDrawable02 = new TextureRegionDrawable(avaTextureRegion02);
 
-        final ImageButton ava2 = new ImageButton(avaTextureRegionDrawable02);
+        ava2 = new ImageButton(avaTextureRegionDrawable02);
 
         Texture avaTexture03 = new Texture(Gdx.files.internal("birdDefault.png"));
         TextureRegion avaTextureRegion03 = new TextureRegion(avaTexture03);
         TextureRegionDrawable avaTextureRegionDrawable03 = new TextureRegionDrawable(avaTextureRegion03);
 
-        final ImageButton ava3 = new ImageButton(avaTextureRegionDrawable03);
+        ava3 = new ImageButton(avaTextureRegionDrawable03);
 
+        ava1.addListener(new EventListener() {
+            @Override
+            public boolean handle(Event event) {
+                ava1.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(AppPreferences.birds[0]))));
+                ava2.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(AppPreferences.birds[4]))));
+                ava3.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(AppPreferences.birds[5]))));
+                AppPreferences.setPrefBirdAvatar(0);
+                AppPreferences.setPrefBirdAnimation(0);
+                return false;
+            }
+        });
+
+        ava2.addListener(new EventListener() {
+            @Override
+            public boolean handle(Event event) {
+                ava1.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(AppPreferences.birds[3]))));
+                ava2.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(AppPreferences.birds[1]))));
+                ava3.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(AppPreferences.birds[5]))));
+                AppPreferences.setPrefBirdAvatar(1);
+                AppPreferences.setPrefBirdAnimation(1);
+                return false;
+            }
+        });
+
+        ava3.addListener(new EventListener() {
+            @Override
+            public boolean handle(Event event) {
+                ava1.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(AppPreferences.birds[3]))));
+                ava2.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(AppPreferences.birds[4]))));
+                ava3.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal(AppPreferences.birds[2]))));
+                AppPreferences.setPrefBirdAvatar(2);
+                AppPreferences.setPrefBirdAnimation(2);
+                return false;
+            }
+        });
 
         // CHANGE BACKGROUND SLIDER
         final Slider backgroundSelectorSlider = new Slider(0f, 2f, 1f, false, skin);
@@ -185,15 +213,22 @@ public class PreferencesScreen implements Screen {
         });
 
         Label titleLabel = new Label("Preferences", skin);
+        titleLabel.setColor(Color.BLACK);
         titleLabel.setFontScale(1.5f);
         Label changeAvatarLabel = new Label("Select avatar", skin);
+        changeAvatarLabel.setColor(Color.BLACK);
         Label backgroundSelectorLabel = new Label("Select playground", skin);
+        backgroundSelectorLabel.setColor(Color.BLACK);
         Label volumeMusicLabel = new Label("Music Volume", skin);
+        volumeMusicLabel.setColor(Color.BLACK);
         Label volumeSoundLabel = new Label("Sound Volume", skin);
+        volumeSoundLabel.setColor(Color.BLACK);
         Label musicOnOffLabel = new Label("ON/OFF", skin);
+        musicOnOffLabel.setColor(Color.BLACK);
         Label soundOnOffLabel = new Label("ON/OFF", skin);
+        soundOnOffLabel.setColor(Color.BLACK);
 
-        //table.debug();
+
         table.add(titleLabel).colspan(3).center();
         table.row().pad(20, 0, 0, 0);
         table.add(changeAvatarLabel).colspan(3).center();
@@ -224,7 +259,6 @@ public class PreferencesScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        // clear the screen ready for next set of images to be drawn
         Gdx.graphics.setContinuousRendering(false);
         Gdx.gl.glClearColor(0f, 0f, 0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -238,8 +272,6 @@ public class PreferencesScreen implements Screen {
             parent.changeScreen(FlappyStarter.MENU);
 
         }
-
-        // tell our stage to do actions and draw itself
         stage.draw();
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
 

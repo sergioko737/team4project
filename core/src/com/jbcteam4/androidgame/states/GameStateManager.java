@@ -1,11 +1,11 @@
 package com.jbcteam4.androidgame.states;
 
-
         import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
         import java.util.Stack;
 
-
+/**
+ * The type Game state manager. By placing Game States to the Stack.
+ */
 public class GameStateManager {
 
     private Stack<State> states;
